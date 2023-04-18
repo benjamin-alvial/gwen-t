@@ -2,8 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import munit.FunSuite
-import cl.uchile.dcc.gwent.ComputerPlayer
-import cl.uchile.dcc.gwent.UserPlayer
+import cl.uchile.dcc.gwent.player.{ComputerPlayer, UserPlayer}
 
 class PlayerTest extends FunSuite {
 

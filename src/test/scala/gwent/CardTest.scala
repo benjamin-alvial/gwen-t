@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.card.{CardSet, UnitCard, WeatherCard}
 import munit.FunSuite
-import cl.uchile.dcc.gwent.CardSet
 
 
 class CardTest extends FunSuite {

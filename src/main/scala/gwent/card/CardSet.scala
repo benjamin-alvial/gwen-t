@@ -1,12 +1,13 @@
 package cl.uchile.dcc
-package gwent
+package gwent.card
 
 class CardSet() {
   
-  def this(card_amount: Int) = {
+  def this(set: CardSet, card_amount: Int) = {
     this()
-    // To implement: choose 10 at random.
+    // To implement: choose 10 at random and return selection.
   }
+  def choose(card_amount: Int): CardSet = ???
   
   var list: List[Card] = List(
     new UnitCard("C1"),

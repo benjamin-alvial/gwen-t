@@ -1,7 +1,7 @@
 package cl.uchile.dcc
-package gwent
+package gwent.player
 
-trait Card {
+trait Player {
   def play(): Unit
   def draw(): Unit
 }
