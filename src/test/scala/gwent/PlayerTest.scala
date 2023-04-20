@@ -5,10 +5,13 @@ import munit.FunSuite
 import cl.uchile.dcc.gwent.player.{ComputerPlayer, UserPlayer}
 
 class PlayerTest extends FunSuite {
+  
+  var USR: UserPlayer = null
+  var CPU: ComputerPlayer = null
 
   override def beforeEach(context: BeforeEach): Unit = {
-    val USR = new UserPlayer("Kermit")
-    val CPU = new ComputerPlayer("Computer")
+    USR = new UserPlayer("Kermit")
+    CPU = new ComputerPlayer("Computer")
   }
 
   test("Player must have a name.") {
@@ -16,29 +19,36 @@ class PlayerTest extends FunSuite {
     assertEquals(CPU.name, expected = "Computer")
   }
 
-  test("Player's gem_counter must start at 2 and decrease in 1 when a gem is lost.") {
-    assertEquals(USR.gem_counter, expected = 2)
-    assertEquals(CPU.gem_counter, expected = 2)
-    USR.lose_gem()
-    assertEquals(USR.gem_counter, expected = 1)
-    assertEquals(CPU.gem_counter, expected = 2)
+  test("Player's gems must start at 2 and decrease in 1 when a gem is lost.") {
+    assertEquals(USR.getGems(), expected = 2)
+    assertEquals(CPU.getGems(), expected = 2)
+    USR.loseGem()
+    assertEquals(USR.getGems(), expected = 1)
+    assertEquals(CPU.getGems(), expected = 2)
   }
 
-  test("Player's deck and hand amount must remain consistent to draws and plays.") {
-    assertEquals(USR.deck.amount, expected = 15)
-    assertEquals(USR.hand.amount, expected = 10)
-    USR.draw_card()
-    assertEquals(USR.deck.amount, expected = 15)
-    assertEquals(USR.hand.amount, expected = 10)
-    USR.play_card()
-    assertEquals(USR.deck.amount, expected = 15)
-    assertEquals(USR.hand.amount, expected = 9)
-    USR.draw_card()
-    assertEquals(USR.deck.amount, expected = 14)
-    assertEquals(USR.hand.amount, expected = 10)
+  test("Player's deck and hand amount must begin correctly and remain consistent to draws and plays.") {
+    assertEquals(USR.getDeck().getAmount(), expected = 25)
+    assertEquals(USR.getHand().getAmount(), expected = 10)
+    USR.play()
+    assertEquals(USR.getDeck().getAmount(), expected = 25)
+    assertEquals(USR.getHand().getAmount(), expected = 9)
+    USR.draw()
+    assertEquals(USR.getDeck().getAmount(), expected = 24)
+    assertEquals(USR.getHand().getAmount(), expected = 10)
   }
 
+  test("Two players with the same name are equal.") {
+    val CPU2 = new ComputerPlayer("Computer")
+    val CPU3 = new ComputerPlayer("Laptop")
+    assertEquals(CPU, CPU)
+    assertEquals(CPU, CPU2)
+    assertNotEquals(CPU, CPU3)
+    assertNotEquals(CPU, CPU3)
 
+    val name_string: String = "Computer"
+    assertNotEquals[Any, Any](CPU, name_string)
 
+  }
 
 }

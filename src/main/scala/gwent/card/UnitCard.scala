@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.card
 
-class UnitCard(name: String) extends AbstractCard(name) {
+class UnitCard(val name: String) extends AbstractCard(name) {
   
   var ability: Option[String] = None
 
@@ -10,7 +10,7 @@ class UnitCard(name: String) extends AbstractCard(name) {
     this.ability = Some(ability)
   }
 
-  def play(): Unit
+  def play(): Unit = {}
 
   
 

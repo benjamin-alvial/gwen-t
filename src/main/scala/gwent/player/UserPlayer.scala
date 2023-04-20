@@ -3,8 +3,21 @@ package gwent.player
 
 import gwent.card.CardSet
 
-class UserPlayer(name: String) extends AbstractPlayer(name) {
+class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
 
-  def play(): Unit = ??? // Strategy to be implemented.
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[UserPlayer]
+
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[UserPlayer]
+      (this eq other) || (this.name == other.name)
+    } else {
+      false
+    }
+  }
+
+  def play(): Unit = {
+    getHand().take()
+  } // Strategy to be implemented.
 
 }
