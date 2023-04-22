@@ -58,8 +58,86 @@ class CardTest extends FunSuite {
     assertEquals(Subset_set.getAmount(), expected = 10)
   }
 
-  test("Card sets must correctly remove card when drawn or played.") {
-    // Future implementation with ids.
+  test("Cards can be equal if they share name and abilities.") {
+    // Card with itself.
+    assertEquals(U_plain_card, U_plain_card)
+    assertEquals(U_effect_card, U_effect_card)
+    assertEquals(W_card, W_card)
+
+    // Card with another with same name and ability.
+    val U_plain_card_copy = new UnitCard("C1")
+    assertEquals(U_plain_card, U_plain_card_copy)
+
+    val U_effect_card_copy = new UnitCard("C2", "MB")
+    assertEquals(U_effect_card, U_effect_card_copy)
+
+    val W_card_copy = new WeatherCard("W1", "BF")
+    assertEquals(W_card, W_card_copy)
+
+    // Card with object of another type (String).
+    assertNotEquals[Any, Any](U_plain_card, "C1")
+    assertNotEquals[Any, Any](U_effect_card, "C2")
+    assertNotEquals[Any, Any](W_card, "W1")
+
+    // Cards of different subclasses (UnitCard and WeatherCard)
+    assertNotEquals[Any, Any](U_plain_card, W_card)
+    assertNotEquals[Any, Any](U_effect_card, W_card)
+
+    val U_same_name_effect = new WeatherCard("XX", "ZZ")
+    val W_same_name_effect = new UnitCard("XX", "ZZ")
+    assertNotEquals[Any, Any](U_same_name_effect, W_same_name_effect)
+
+    // Cards with same name but different ability.
+    val U_plain_other_effect = new UnitCard("C2", "MB")
+    assertNotEquals(U_plain_card, U_plain_other_effect)
+
+    val W_card_other_effect = new WeatherCard("W1", "IF")
+    assertNotEquals(W_card, W_card_other_effect)
+
+    // Cards with same ability but different name.
+    val U_plain_other_name = new UnitCard("C3", "MB")
+    assertNotEquals(U_plain_card, U_plain_other_name)
+
+    val W_card_other_name = new WeatherCard("W2", "BF")
+    assertNotEquals(W_card, W_card_other_name)
+  }
+
+  test("CardSets can be equal if they contain the same cards.") {
+    // CardSet with itself.
+    assertEquals(Build_set, Build_set)
+    assertEquals(Empty_set, Empty_set)
+    
+    // CardSet with a copy.
+    val Build_set_copy = new CardSet(true)
+    val Empty_set_copy = new CardSet(false)
+    assertEquals(Build_set, Build_set_copy)
+    assertEquals(Empty_set, Empty_set_copy)
+
+    // CardSet with object of another type (String).
+    assertNotEquals[Any, Any](Build_set, "Build_set")
+    assertNotEquals[Any, Any](Empty_set, "Empty_set")
+
+    // CardSets constructed with put, also verify same cards but added in different order.
+    val Empty_set_1 = new CardSet(false)
+    val Empty_set_2 = new CardSet(false)
+    assertEquals(Empty_set_1, Empty_set_2)
+
+    Empty_set_1.put(U_plain_card)
+    Empty_set_2.put(U_plain_card)
+    assertEquals(Empty_set_1, Empty_set_2)
+
+    Empty_set_1.put(U_effect_card)
+    Empty_set_1.put(W_card)
+    Empty_set_2.put(W_card)
+    Empty_set_2.put(U_effect_card)
+    assertEquals(Empty_set_1, Empty_set_2)
+
+    // CardSet with different cards.
+    assertNotEquals(Build_set, Empty_set)
+    
+    // CardSet after a shuffle.
+    val Build_set_shuffle = new CardSet(true)
+    assertEquals(Build_set, Build_set_shuffle)
   }
 
 

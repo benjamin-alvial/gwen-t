@@ -28,26 +28,51 @@ class PlayerTest extends FunSuite {
   }
 
   test("Player's deck and hand amount must begin correctly and remain consistent to draws and plays.") {
-    assertEquals(USR.getDeck().getAmount(), expected = 25)
+    assertEquals(USR.getDeck().getAmount(), expected = 15)
     assertEquals(USR.getHand().getAmount(), expected = 10)
     USR.play()
-    assertEquals(USR.getDeck().getAmount(), expected = 25)
+    assertEquals(USR.getDeck().getAmount(), expected = 15)
     assertEquals(USR.getHand().getAmount(), expected = 9)
     USR.draw()
-    assertEquals(USR.getDeck().getAmount(), expected = 24)
+    assertEquals(USR.getDeck().getAmount(), expected = 14)
     assertEquals(USR.getHand().getAmount(), expected = 10)
+
+
+    assertEquals(CPU.getDeck().getAmount(), expected = 15)
+    assertEquals(CPU.getHand().getAmount(), expected = 10)
+    CPU.play()
+    assertEquals(CPU.getDeck().getAmount(), expected = 15)
+    assertEquals(CPU.getHand().getAmount(), expected = 9)
+    CPU.draw()
+    assertEquals(CPU.getDeck().getAmount(), expected = 14)
+    assertEquals(CPU.getHand().getAmount(), expected = 10)
   }
 
   test("Two players with the same name are equal.") {
+    // Player with itself.
+    assertEquals(CPU, CPU)
+    assertEquals(USR, USR)
+
+    // Player with another with same name.
     val CPU2 = new ComputerPlayer("Computer")
     val CPU3 = new ComputerPlayer("Laptop")
-    assertEquals(CPU, CPU)
+    val USR2 = new UserPlayer("Kermit")
+    val USR3 = new UserPlayer("PeppaPig")
     assertEquals(CPU, CPU2)
     assertNotEquals(CPU, CPU3)
-    assertNotEquals(CPU, CPU3)
+    assertEquals(USR, USR2)
+    assertNotEquals(USR, USR3)
 
-    val name_string: String = "Computer"
-    assertNotEquals[Any, Any](CPU, name_string)
+    // Player with object of another type (String).
+    val name_string_CPU: String = "Computer"
+    val name_string_USR: String = "Kermit"
+    assertNotEquals[Any, Any](CPU, name_string_CPU)
+    assertNotEquals[Any, Any](USR, name_string_USR)
+
+    // Players of different subclasses (UserPlayer and ComputerPlayer).
+    val USR4 = new UserPlayer("Computer")
+    assertNotEquals[Any, Any](CPU, USR) // Different class and different name.
+    assertNotEquals[Any, Any](CPU, USR4) // Different class but same name.
 
   }
 
