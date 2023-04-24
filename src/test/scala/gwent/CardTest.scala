@@ -4,7 +4,7 @@ package gwent
 import cl.uchile.dcc.gwent.card.{CardSet, UnitCard, WeatherCard}
 import munit.FunSuite
 
-
+/** Tests methods related to Cards and CardSets. */
 class CardTest extends FunSuite {
 
   var U_plain_card: UnitCard = null
@@ -134,9 +134,11 @@ class CardTest extends FunSuite {
 
     // CardSet with different cards.
     assertNotEquals(Build_set, Empty_set)
+    assertNotEquals(Empty_set, Build_set)
     
     // CardSet after a shuffle.
     val Build_set_shuffle = new CardSet(true)
+    Build_set_shuffle.shuffle()
     assertEquals(Build_set, Build_set_shuffle)
   }
 

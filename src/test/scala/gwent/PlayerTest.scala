@@ -4,6 +4,7 @@ package gwent
 import munit.FunSuite
 import cl.uchile.dcc.gwent.player.{ComputerPlayer, UserPlayer}
 
+/** Tests methods related to Players. */
 class PlayerTest extends FunSuite {
   
   var USR: UserPlayer = null
