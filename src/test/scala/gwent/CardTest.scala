@@ -15,7 +15,7 @@ class CardTest extends FunSuite {
   var Empty_set: CardSet = null
 
   override def beforeEach(context: BeforeEach): Unit = {
-    U_plain_card = new UnitCard("C1")
+    U_plain_card = new UnitCard("C1", 100)
     U_effect_card = new UnitCard("C2", "MB")
     W_card = new WeatherCard("W1", "BF")
 
@@ -29,7 +29,6 @@ class CardTest extends FunSuite {
     assertEquals(W_card.name, expected = "W1")
   }
 
-
   test("Weather cards must have an effect.") {
     assertEquals(W_card.ability, expected = "BF")
   }
@@ -41,15 +40,23 @@ class CardTest extends FunSuite {
 
   test("Cards can be taken from non-empty set.") {
     assertEquals(Build_set.getAmount(), expected = 25)
-    Build_set.take()
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
+
+    Build_set.take(U_plain_card)
+
     assertEquals(Build_set.getAmount(), expected = 24)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 1)
     // Future: exception for taking from empty set.
   }
 
   test("Cards can be put into a set.")  {
     assertEquals(Empty_set.getAmount(), expected = 0)
+    assertEquals(Empty_set.occurrences(U_plain_card), expected = 0)
+
     Empty_set.put(U_plain_card)
+
     assertEquals(Empty_set.getAmount(), expected = 1)
+    assertEquals(Empty_set.occurrences(U_plain_card), expected = 1)
     // Future: exception for maximum amount on hand.
   }
 
@@ -65,7 +72,7 @@ class CardTest extends FunSuite {
     assertEquals(W_card, W_card)
 
     // Card with another with same name and ability.
-    val U_plain_card_copy = new UnitCard("C1")
+    val U_plain_card_copy = new UnitCard("C1", 100)
     assertEquals(U_plain_card, U_plain_card_copy)
 
     val U_effect_card_copy = new UnitCard("C2", "MB")

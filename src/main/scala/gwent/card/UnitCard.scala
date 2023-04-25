@@ -18,7 +18,7 @@ package gwent.card
  * @since 0.1.0
  * @version 0.1.0
  */
-class UnitCard(val name: String) extends AbstractCard(name) with Equals {
+class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
 
   /** The ability of the card. */
   var ability: Option[String] = None // Abilities are strings only for now.
@@ -30,7 +30,7 @@ class UnitCard(val name: String) extends AbstractCard(name) with Equals {
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[UnitCard]
-      (this eq other) || ((this.name == other.name) && (this.ability == other.ability))
+      (this eq other) || ((this.name == other.name) && (this.ability == other.ability) && (this.strength == other.strength))
     } else {
       false
     }
@@ -38,7 +38,7 @@ class UnitCard(val name: String) extends AbstractCard(name) with Equals {
 
   /** Creates a new unit card with the specified name and ability. */
   def this(name: String, ability: String) = {
-    this(name)
+    this(name, strength = 100)
     this.ability = Some(ability)
   }
 

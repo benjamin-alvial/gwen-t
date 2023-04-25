@@ -28,24 +28,24 @@ class CardSet(build: Boolean) extends Equals {
   
   if (build) {
     list = ListBuffer(
-      new UnitCard("C1"),
-      new UnitCard("C1"),
-      new UnitCard("C2"),
-      new UnitCard("C2"),
+      new UnitCard("C1", 100),
+      new UnitCard("C1", 100),
+      new UnitCard("C2", 100),
+      new UnitCard("C2", 100),
       new UnitCard("C1", "MB"), // Morale Boost.
       new UnitCard("C1", "TB"), // Tight Bond.
 
-      new UnitCard("R1"),
-      new UnitCard("R1"),
-      new UnitCard("R2"),
-      new UnitCard("R2"),
+      new UnitCard("R1", 100),
+      new UnitCard("R1", 100),
+      new UnitCard("R2", 100),
+      new UnitCard("R2", 100),
       new UnitCard("R1", "MB"), // Morale Boost.
       new UnitCard("R1", "TB"), // Tight Bond.
 
-      new UnitCard("S1"),
-      new UnitCard("S1"),
-      new UnitCard("S2"),
-      new UnitCard("S2"),
+      new UnitCard("S1", 100),
+      new UnitCard("S1", 100),
+      new UnitCard("S2", 100),
+      new UnitCard("S2", 100),
       new UnitCard("S1", "MB"), // Morale Boost.
       new UnitCard("S1", "TB"), // Tight Bond.
 
@@ -100,13 +100,33 @@ class CardSet(build: Boolean) extends Equals {
     list.remove(idx)
   }
 
+  /** Removes the specified card from the list. */
+  def take(x: Card): Unit = {
+    val election = new CardSet(build = false)
+    var found = false // State variable to mark that we already took the 1 instance we wanted.
+
+    for (i <- 1 to getAmount()) {
+      val taken = take()
+
+      if (found == true) {
+        election.put(taken)
+      } else {
+        if (taken != x) {
+          election.put(taken)
+        } else found = true
+      }
+
+    }
+    list = election.list
+  }
+
   /** Adds the given card to the list. */
   def put(x: Card): Unit = list.append(x)
 
-  /** Chooses a subset of cards from the list. 
-   * 
+  /** Chooses a subset of cards from the list.
+   *
    * Chooses the desired amount of cards from the CardSet randomly, removes them and adds them to a new CardSet, which is returned.
-   * 
+   *
    * @param card_amount The amount of cards to be chosen.
    * @return The CardSet whose list contains the chosen cards.
    * @example
@@ -116,7 +136,7 @@ class CardSet(build: Boolean) extends Equals {
    * }}}
    * */
   def choose(card_amount: Int): CardSet = {
-    
+
     val election = new CardSet(build = false)
 
     for (i <- 1 to card_amount) {
@@ -132,7 +152,7 @@ class CardSet(build: Boolean) extends Equals {
   }
 
   /** Counts the occurrences of a given card in the list. */
-  private def occurrences(x: Card): Int = {
+  def occurrences(x: Card): Int = {
     var i: Int = 0
     for (c <- list) {
       if (c == x) {
