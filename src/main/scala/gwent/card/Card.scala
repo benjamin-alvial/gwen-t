@@ -9,5 +9,6 @@ package gwent.card
  * @version 0.1.0
  */
 trait Card {
+  /** Places the card on the board to carry out its effects and add strength to its row. */
   def play(): Unit
 }

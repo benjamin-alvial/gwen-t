@@ -38,7 +38,6 @@ class PlayerTest extends FunSuite {
     assertEquals(USR.getDeck().getAmount(), expected = 14)
     assertEquals(USR.getHand().getAmount(), expected = 10)
 
-
     assertEquals(CPU.getDeck().getAmount(), expected = 15)
     assertEquals(CPU.getHand().getAmount(), expected = 10)
     CPU.play()
@@ -47,6 +46,7 @@ class PlayerTest extends FunSuite {
     CPU.draw()
     assertEquals(CPU.getDeck().getAmount(), expected = 14)
     assertEquals(CPU.getHand().getAmount(), expected = 10)
+    // Future: once strategy is implemented, verify cards are actually removed from sets.
   }
 
   test("Two players with the same name are equal.") {
@@ -74,7 +74,6 @@ class PlayerTest extends FunSuite {
     val USR4 = new UserPlayer("Computer")
     assertNotEquals[Any, Any](CPU, USR) // Different class and different name.
     assertNotEquals[Any, Any](CPU, USR4) // Different class but same name.
-
   }
 
 }

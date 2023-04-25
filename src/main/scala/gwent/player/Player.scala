@@ -9,6 +9,8 @@ package gwent.player
  * @version 0.1.0
  */
 trait Player {
+  /** Carries out the player's strategy. */
   def play(): Unit
+  /** Draws a card from the deck. */
   def draw(): Unit
 }
