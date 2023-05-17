@@ -31,7 +31,7 @@ class PlayerTest extends FunSuite {
   test("Player's deck and hand amount must begin correctly and remain consistent to draws and plays.") {
     assertEquals(USR.getDeck().getAmount(), expected = 15)
     assertEquals(USR.getHand().getAmount(), expected = 10)
-    USR.play()
+    USR.strategy()
     assertEquals(USR.getDeck().getAmount(), expected = 15)
     assertEquals(USR.getHand().getAmount(), expected = 9)
     USR.draw()
@@ -40,7 +40,7 @@ class PlayerTest extends FunSuite {
 
     assertEquals(CPU.getDeck().getAmount(), expected = 15)
     assertEquals(CPU.getHand().getAmount(), expected = 10)
-    CPU.play()
+    CPU.strategy()
     assertEquals(CPU.getDeck().getAmount(), expected = 15)
     assertEquals(CPU.getHand().getAmount(), expected = 9)
     CPU.draw()
