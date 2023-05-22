@@ -1,7 +1,9 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.card.{CardSet, UnitCard, WeatherCard}
+import cl.uchile.dcc.gwent.card.set.CardSet
+import cl.uchile.dcc.gwent.card.unit.UnitCard
+import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import munit.FunSuite
 
 /** Tests methods related to Cards and CardSets. */

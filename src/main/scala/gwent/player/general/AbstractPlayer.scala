@@ -1,11 +1,13 @@
 package cl.uchile.dcc
-package gwent.player
+package gwent.player.general
 
-import gwent.card.CardSet
+import gwent.card.set.CardSet
+
+import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
  *
- * The player can be a [[cl.uchile.dcc.gwent.player.UserPlayer]] or [[cl.uchile.dcc.gwent.player.ComputerPlayer]].
+ * The player can be a [[UserPlayer]] or [[ComputerPlayer]].
  *
  * @param name The name of the player.
  *

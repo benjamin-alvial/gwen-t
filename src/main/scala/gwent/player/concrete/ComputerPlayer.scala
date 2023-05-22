@@ -1,7 +1,8 @@
 package cl.uchile.dcc
-package gwent.player
+package gwent.player.concrete
 
-import gwent.card.CardSet
+import gwent.card.set.CardSet
+import gwent.player.general.AbstractPlayer
 
 /** Represents the computer playing the game.
  *

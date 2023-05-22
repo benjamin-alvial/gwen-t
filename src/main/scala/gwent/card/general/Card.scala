@@ -1,8 +1,10 @@
 package cl.uchile.dcc
-package gwent.card
+package gwent.card.general
+
+import gwent.card.general.AbstractCard
 
 /**
- * Interface used for [[cl.uchile.dcc.gwent.card.AbstractCard]], which can be played. 
+ * Interface used for [[AbstractCard]], which can be played. 
  *
  * @author benjamin-alvial
  * @since 0.1.0

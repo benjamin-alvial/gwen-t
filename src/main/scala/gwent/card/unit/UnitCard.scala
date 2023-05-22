@@ -1,24 +1,25 @@
 package cl.uchile.dcc
-package gwent.card
+package gwent.card.unit
+
+import cl.uchile.dcc.gwent.card.general.AbstractCard
 
 /** Represents the unit cards.
  *
  * A unit card is placed on one of three rows to accumulate strength. A unit card may have an ability.
  *
  * @param name The name of the unit card.
- *             
- * @constructor Creates a new unit card with the specified name.
- *              
+ * @param strength The base strength of the unit card.             
+ * @constructor Creates a new unit card with the specified name and strength.              
  * @example
  * {{{
- * val u_card = new UnitCard("C1")
- * val U_card_effect = new UnitCard("C2", "MB")
+ * val u_card = new UnitCard("C1", 100)
+ * val U_card_effect = new UnitCard("C2", 100, "MB")
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
-class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
+abstract class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
 
   /** The ability of the card. */
   var ability: Option[String] = None // Abilities are strings only for now.
@@ -37,8 +38,8 @@ class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) w
   }
 
   /** Creates a new unit card with the specified name and ability. */
-  def this(name: String, ability: String) = {
-    this(name, strength = 100)
+  def this(name: String, strength: Int, ability: String) = {
+    this(name, strength)
     this.ability = Some(ability)
   }
 

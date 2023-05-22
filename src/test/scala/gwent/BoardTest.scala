@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.player.{UserPlayer}
+import cl.uchile.dcc.gwent.player.concrete.UserPlayer
 import munit.FunSuite
 
 /** Tests methods related to a Player playing Cards on the Zones of the Board. */

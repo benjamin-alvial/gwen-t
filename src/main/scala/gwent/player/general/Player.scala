@@ -1,8 +1,10 @@
 package cl.uchile.dcc
-package gwent.player
+package gwent.player.general
+
+import gwent.player.general.AbstractPlayer
 
 /** 
- * Interface used for [[cl.uchile.dcc.gwent.player.AbstractPlayer]], which can play and draw cards. 
+ * Interface used for [[AbstractPlayer]], which can play and draw cards. 
  * 
  * @author benjamin-alvial
  * @since 0.1.0

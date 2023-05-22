@@ -1,5 +1,11 @@
 package cl.uchile.dcc
-package gwent.card
+package gwent.card.set
+
+import gwent.card.unit.CloseUnitCard
+import gwent.card.unit.RangedUnitCard
+import gwent.card.unit.SiegeUnitCard
+import gwent.card.weather.WeatherCard
+import cl.uchile.dcc.gwent.card.general.Card
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -28,26 +34,27 @@ class CardSet(build: Boolean) extends Equals {
   
   if (build) {
     list = ListBuffer(
-      new UnitCard("C1", 100),
-      new UnitCard("C1", 100),
-      new UnitCard("C2", 100),
-      new UnitCard("C2", 100),
-      new UnitCard("C1", "MB"), // Morale Boost.
-      new UnitCard("C1", "TB"), // Tight Bond.
+      // Future: implement abilities.
+      new CloseUnitCard("C1", 100),
+      new CloseUnitCard("C1", 100),
+      new CloseUnitCard("C2", 100),
+      new CloseUnitCard("C2", 100),
+      new CloseUnitCard("C1", 100), // Morale Boost.
+      new CloseUnitCard("C1", 100), // Tight Bond.
 
-      new UnitCard("R1", 100),
-      new UnitCard("R1", 100),
-      new UnitCard("R2", 100),
-      new UnitCard("R2", 100),
-      new UnitCard("R1", "MB"), // Morale Boost.
-      new UnitCard("R1", "TB"), // Tight Bond.
+      new RangedUnitCard("R1", 100),
+      new RangedUnitCard("R1", 100),
+      new RangedUnitCard("R2", 100),
+      new RangedUnitCard("R2", 100),
+      new RangedUnitCard("R1", 100), // Morale Boost.
+      new RangedUnitCard("R1", 100), // Tight Bond.
 
-      new UnitCard("S1", 100),
-      new UnitCard("S1", 100),
-      new UnitCard("S2", 100),
-      new UnitCard("S2", 100),
-      new UnitCard("S1", "MB"), // Morale Boost.
-      new UnitCard("S1", "TB"), // Tight Bond.
+      new SiegeUnitCard("S1", 100),
+      new SiegeUnitCard("S1", 100),
+      new SiegeUnitCard("S2", 100),
+      new SiegeUnitCard("S2", 100),
+      new SiegeUnitCard("S1", 100), // Morale Boost.
+      new SiegeUnitCard("S1", 100), // Tight Bond.
 
       new WeatherCard("W1", "BF"), // Biting Frost.
       new WeatherCard("W1", "BF"), // Biting Frost.
