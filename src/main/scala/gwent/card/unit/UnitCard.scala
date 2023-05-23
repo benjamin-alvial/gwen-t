@@ -17,7 +17,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 abstract class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
 
@@ -42,8 +42,5 @@ abstract class UnitCard(val name: String, val strength: Int) extends AbstractCar
     this(name, strength)
     this.ability = Some(ability)
   }
-
-  /** Card places itself on field. */
-  def play(): Unit = {}
   
 }

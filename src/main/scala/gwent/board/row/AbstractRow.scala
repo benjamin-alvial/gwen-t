@@ -12,11 +12,15 @@ import cl.uchile.dcc.gwent.board.zone.Zone
  *
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 class AbstractRow extends Zone {
   /** The list of cards currently placed on row. */
   private val current_cards: CardSet = new CardSet(false)
   
   def play(c: Card): Unit = current_cards.put(c)
+  
+  def getCurrentCards(): CardSet = current_cards
+  
+  
 }

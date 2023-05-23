@@ -20,7 +20,7 @@ import gwent.player.general.AbstractPlayer
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
 
@@ -38,8 +38,8 @@ class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
   }
 
   /** Removes a random card from the hand. */
-  def play(): Unit = {
+  def strategy(): Unit = {
     getHand().take()
-  } // Strategy to be implemented.
+  }
 
 }

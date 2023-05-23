@@ -3,6 +3,8 @@ package gwent.player.general
 
 import gwent.card.set.CardSet
 
+import cl.uchile.dcc.gwent.board.general.Side
+import cl.uchile.dcc.gwent.card.general.Card
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
@@ -15,7 +17,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
@@ -25,7 +27,8 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   private val deck: CardSet = new CardSet(build = true)
   /** The CardSet of playable cards, initially with 10 cards. */
   private val hand: CardSet = deck.choose(10)
-
+  /** The side of the board of the player, composed of three rows. */
+  private val side: Side = new Side()
 
   /** Returns the amount of gems left. */
   def getGems(): Int = gems
@@ -50,6 +53,13 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   def draw(): Unit = {
     val taken = deck.take()
     hand.put(taken)
+  }
+
+  /** Returns the side of the player. */
+  def getSide(): Side = side
+
+  def play(c: Card): Unit = {
+    c.play(side)
   }
 
 }

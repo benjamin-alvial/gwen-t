@@ -21,12 +21,12 @@ import cl.uchile.dcc.gwent.board.zone.Zone
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 class Side {
-  val zone_close: Zone = new CloseRow()
-  val zone_ranged: Zone = new RangedRow()
-  val zone_siege: Zone = new SiegeRow()
+  val zone_close: CloseRow = new CloseRow()
+  val zone_ranged: RangedRow = new RangedRow()
+  val zone_siege: SiegeRow = new SiegeRow()
   
   def receiveClose(c: CloseUnitCard): Unit = zone_close.play(c)
 
