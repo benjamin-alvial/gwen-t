@@ -38,6 +38,7 @@ class ComputerPlayer(name: String) extends AbstractPlayer(name) with Equals {
   }
   
   /** Removes a random card from the hand. */
+  // Future: implement real automatic strategy calculating power of current played cards.
   def strategy(): Unit = {
     getHand().take()
   }

@@ -38,6 +38,7 @@ class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
   }
 
   /** Removes a random card from the hand. */
+  // Future: implement real input-based strategy.
   def strategy(): Unit = {
     getHand().take()
   }

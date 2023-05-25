@@ -21,13 +21,19 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
-  /** The current amount of gems. */
+  /** The current amount of gems, initially set as 2. */
   private var gems: Int = 2
-  /** The CardSet of drawable cards, initially with 15 cards. */
+  
+  /** The CardSet of drawable cards, initially with 15 cards. 
+   * As it is instantiated, it has the 25 original cards.
+   * After 10 cards have been chosen for the hand, it has 15 remaining. */
   private val deck: CardSet = new CardSet(build = true)
-  /** The CardSet of playable cards, initially with 10 cards. */
+  
+  /** The CardSet of playable cards, initially with 10 cards. 
+   * It is a subset of the original 25 cards. */
   private val hand: CardSet = deck.choose(10)
-  /** The side of the board of the player, composed of three rows. */
+  
+  /** The side of the board of the player, composed of three rows on which unit cards can be played. */
   private val side: Side = new Side()
 
   /** Returns the amount of gems left. */
@@ -44,7 +50,7 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   /** Returns the CardSet of playable cards. */
   def getHand(): CardSet = hand
 
-  /** Decreases the amount of gems by one. */
+  /** Decreases the current amount of gems by one. */
   def loseGem(): Unit = {
     setGems(getGems() - 1)
   }
@@ -58,6 +64,7 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   /** Returns the side of the player. */
   def getSide(): Side = side
 
+  /** Calls for a card to play itself on the given side. */
   def play(c: Card): Unit = {
     c.play(side)
   }
