@@ -17,7 +17,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
@@ -66,6 +66,7 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
   /** Calls for a card to play itself on the given side. */
   def play(c: Card): Unit = {
+    getHand().take(c)
     c.play(side)
   }
 

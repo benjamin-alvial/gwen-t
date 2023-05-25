@@ -20,7 +20,7 @@ import gwent.player.general.AbstractPlayer
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
 
@@ -37,10 +37,9 @@ class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
     }
   }
 
-  /** Removes a random card from the hand. */
+  /** Decides which card to play and plays it. The first is chosen. */
   // Future: implement real input-based strategy.
   def strategy(): Unit = {
-    getHand().take()
+    this.play(getHand().list(0))
   }
-
 }

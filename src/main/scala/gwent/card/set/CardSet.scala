@@ -25,12 +25,12 @@ import scala.util.Random
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 class CardSet(build: Boolean) extends Equals {
 
   /** The list of cards. */
-  private var list: ListBuffer[Card] = new ListBuffer()
+  var list: ListBuffer[Card] = new ListBuffer()
   
   if (build) {
     list = ListBuffer(
