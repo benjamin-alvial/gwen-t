@@ -17,7 +17,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
@@ -50,9 +50,11 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   /** Returns the CardSet of playable cards. */
   def getHand(): CardSet = hand
 
-  /** Decreases the current amount of gems by one. */
+  /** Decreases the current amount of gems by one if there are still gems left. */
   def loseGem(): Unit = {
-    setGems(getGems() - 1)
+    if (getGems() > 0) {
+      setGems(getGems() - 1)
+    }
   }
 
   /** Removes a random card from deck and puts it in hand. */

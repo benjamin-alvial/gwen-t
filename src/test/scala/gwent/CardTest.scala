@@ -10,7 +10,7 @@ import munit.FunSuite
 class CardTest extends FunSuite {
 
   var U_plain_card: CloseUnitCard = null
-  var U_effect_card: CloseUnitCard = null
+  //var U_effect_card: CloseUnitCard = null
   var W_card: WeatherCard = null
 
   var Build_set: CardSet = null
@@ -18,7 +18,7 @@ class CardTest extends FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     U_plain_card = new CloseUnitCard("C1", 100)
-    U_effect_card = new CloseUnitCard("C2", 100)
+    //U_effect_card = new CloseUnitCard("C2", 100)
     //U_effect_card = new CloseUnitCard("C2", "MB")
     W_card = new WeatherCard("W1", "BF")
 
@@ -30,6 +30,10 @@ class CardTest extends FunSuite {
     assertEquals(U_plain_card.name, expected = "C1")
     //assertEquals(U_effect_card.name, expected = "C2")
     assertEquals(W_card.name, expected = "W1")
+  }
+
+  test("Card must have base strength.") {
+    assertEquals(U_plain_card.strength, expected = 100)
   }
 
   test("Weather cards must have an effect.") {
@@ -86,12 +90,12 @@ class CardTest extends FunSuite {
 
     // Card with object of another type (String).
     assertNotEquals[Any, Any](U_plain_card, "C1")
-    assertNotEquals[Any, Any](U_effect_card, "C2")
+    //assertNotEquals[Any, Any](U_effect_card, "C2")
     assertNotEquals[Any, Any](W_card, "W1")
 
     // Cards of different subclasses (UnitCard and WeatherCard)
     assertNotEquals[Any, Any](U_plain_card, W_card)
-    assertNotEquals[Any, Any](U_effect_card, W_card)
+    //assertNotEquals[Any, Any](U_effect_card, W_card)
 
     //val U_same_name_effect = new WeatherCard("XX", "ZZ")
     //val W_same_name_effect = new CloseUnitCard("XX", "ZZ")
@@ -136,10 +140,10 @@ class CardTest extends FunSuite {
     Empty_set_2.put(U_plain_card)
     assertEquals(Empty_set_1, Empty_set_2)
 
-    Empty_set_1.put(U_effect_card)
+    //Empty_set_1.put(U_effect_card)
     Empty_set_1.put(W_card)
     Empty_set_2.put(W_card)
-    Empty_set_2.put(U_effect_card)
+    //Empty_set_2.put(U_effect_card)
     assertEquals(Empty_set_1, Empty_set_2)
 
     // CardSet with different cards.
