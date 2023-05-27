@@ -1,7 +1,7 @@
 package cl.uchile.dcc
 package gwent.card.weather
 
-import cl.uchile.dcc.gwent.board.general.Side
+import cl.uchile.dcc.gwent.board.general.{Board, Side}
 import cl.uchile.dcc.gwent.card.general.AbstractCard
 
 /** Represents the weather cards.
@@ -16,7 +16,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 class WeatherCard(val name: String, val ability: String) extends AbstractCard(name) with Equals {
 
@@ -32,10 +32,8 @@ class WeatherCard(val name: String, val ability: String) extends AbstractCard(na
       false
     }
   }
-    
-  /** Card places itself on field. */
-  def play(s: Side): Unit = {
-    ???
-  }
+
+  /** Sends a message to the given side's board to receive the card of type weather. */
+  def play(s: Side): Unit = s.board.receiveWeather(this)
 
 }

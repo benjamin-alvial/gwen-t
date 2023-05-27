@@ -18,16 +18,16 @@ import cl.uchile.dcc.gwent.board.zone.{WeatherZone, Zone}
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  */
 class Board {
   /** Section for the user player. */
-  val section_user: Side = new Side()
+  val section_user: Side = new Side(this)
   /** Section for the computer player. */
-  val section_computer: Side = new Side()
+  val section_computer: Side = new Side(this)
   /** Section for the weather cards. */
-  private val section_weather: Zone = new WeatherZone()
+  val zone_weather: WeatherZone = new WeatherZone()
   
   /** Receives a weather card and calls on the corresponding zone to play it. */
-  def receiveWeather(c: WeatherCard): Unit = section_weather.play(c)
+  def receiveWeather(c: WeatherCard): Unit = zone_weather.play(c)
 }

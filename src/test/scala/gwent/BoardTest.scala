@@ -1,16 +1,20 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.board.general.{Board, Side}
 import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import cl.uchile.dcc.gwent.player.concrete.UserPlayer
 import cl.uchile.dcc.gwent.board.row.AbstractRow
-
+import cl.uchile.dcc.gwent.board.zone.WeatherZone
 import munit.FunSuite
 
 /** Tests methods related to a Player playing Cards on the Zones of the Board. */
 class BoardTest extends FunSuite {
-  
+
+  var b: Board = null
+  var s1: Side = null
+  var s2: Side = null
   var USR: UserPlayer = null
   var U_close_card: CloseUnitCard = null
   var U_ranged_card: RangedUnitCard = null
@@ -18,10 +22,27 @@ class BoardTest extends FunSuite {
   var W_card: WeatherCard = null
 
   override def beforeEach(context: BeforeEach): Unit = {
+    b = new Board()
+    s1 = new Side(b)
+    s2 = new Side(b)
     USR = new UserPlayer("Kermit")
+
+    USR.setSide(s1)
+
+
     U_close_card = new CloseUnitCard("C1", 100)
     U_ranged_card = new RangedUnitCard("R1", 100)
     U_siege_card = new SiegeUnitCard("S1", 100)
+    W_card = new WeatherCard("W1", "BF")
+
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().put(U_close_card)
+    USR.getHand().put(U_ranged_card)
+    USR.getHand().put(U_siege_card)
+    USR.getHand().put(W_card)
   }
 
   test("Close combat unit card played by Player must be removed from hand and added to close combat zone.") {
@@ -49,7 +70,11 @@ class BoardTest extends FunSuite {
   }
 
   test("Weather card played by Player must be removed from hand and added to weather zone") {
-
+    val count_in_hand: Int = USR.getHand().occurrences(W_card)
+    val count_in_zone: Int = USR.getSide().board.zone_weather.getCurrentCards().occurrences(W_card)
+    USR.play(W_card)
+    assertEquals(USR.getHand().occurrences(W_card), count_in_hand - 1)
+    assertEquals(USR.getSide().board.zone_weather.getCurrentCards().occurrences(W_card), count_in_zone + 1)
   }
 
 }

@@ -17,7 +17,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
@@ -32,9 +32,13 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   /** The CardSet of playable cards, initially with 10 cards. 
    * It is a subset of the original 25 cards. */
   private val hand: CardSet = deck.choose(10)
-  
+
   /** The side of the board of the player, composed of three rows on which unit cards can be played. */
-  private val side: Side = new Side()
+  private var side: Side = null
+
+  def setSide(s: Side) = {
+    side = s
+  }
 
   /** Returns the amount of gems left. */
   def getGems(): Int = gems

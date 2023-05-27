@@ -21,15 +21,17 @@ import cl.uchile.dcc.gwent.board.zone.Zone
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
-class Side {
+class Side(b: Board) {
   /** Zone for the close combat cards. */
   val zone_close: CloseRow = new CloseRow()
   /** Zone for the ranged cards. */
   val zone_ranged: RangedRow = new RangedRow()
   /** Zone for the siege cards. */
   val zone_siege: SiegeRow = new SiegeRow()
+  /** Board where the side belongs to. */
+  val board: Board = b
 
   /** Receives a close combat card and calls on the corresponding zone to play it. */
   def receiveClose(c: CloseUnitCard): Unit = zone_close.play(c)
