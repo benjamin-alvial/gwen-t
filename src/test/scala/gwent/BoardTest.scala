@@ -4,7 +4,7 @@ package gwent
 import cl.uchile.dcc.gwent.board.general.{Board, Side}
 import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
-import cl.uchile.dcc.gwent.player.concrete.UserPlayer
+import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import cl.uchile.dcc.gwent.board.row.AbstractRow
 import cl.uchile.dcc.gwent.board.zone.WeatherZone
 import munit.FunSuite
@@ -16,6 +16,7 @@ class BoardTest extends FunSuite {
   var s1: Side = null
   var s2: Side = null
   var USR: UserPlayer = null
+  var CPU: ComputerPlayer = null
   var U_close_card: CloseUnitCard = null
   var U_ranged_card: RangedUnitCard = null
   var U_siege_card: SiegeUnitCard = null
@@ -25,10 +26,12 @@ class BoardTest extends FunSuite {
     b = new Board()
     s1 = new Side(b)
     s2 = new Side(b)
+
     USR = new UserPlayer("Kermit")
+    CPU = new UserPlayer("Computer")
 
     USR.setSide(s1)
-
+    CPU.setSide(s2)
 
     U_close_card = new CloseUnitCard("C1", 100)
     U_ranged_card = new RangedUnitCard("R1", 100)
@@ -43,6 +46,36 @@ class BoardTest extends FunSuite {
     USR.getHand().put(U_ranged_card)
     USR.getHand().put(U_siege_card)
     USR.getHand().put(W_card)
+  }
+
+  test("Two boards are equal if have the same sides and weather zones.") {
+    b1 = new Board()
+    b2 = new Board()
+  }
+
+  test("Two sides are equal if they have the same cards") {
+
+  }
+
+  test("Two rows are equal if they are of the same type and have the same cards.") {
+
+  }
+
+  test("Two weather zones are equal if they have same cards.") {
+
+  }
+
+  test("A board has two sides and a weather zone.") {
+    assertEquals(b.getUserSide(), s1)
+    assertEquals(b.getComputerSide(), s2)
+  }
+
+  test("A side belongs to a board and has three rows.") {
+
+  }
+
+  test("A row has a card set, initially empty.") {
+
   }
 
   test("Close combat unit card played by Player must be removed from hand and added to close combat zone.") {
@@ -69,7 +102,7 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide().zone_siege.getCurrentCards().occurrences(U_siege_card), count_in_zone + 1)
   }
 
-  test("Weather card played by Player must be removed from hand and added to weather zone") {
+  test("Weather card played by Player must be removed from hand and added to weather zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(W_card)
     val count_in_zone: Int = USR.getSide().board.zone_weather.getCurrentCards().occurrences(W_card)
     USR.play(W_card)
