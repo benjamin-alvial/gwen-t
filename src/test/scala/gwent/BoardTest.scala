@@ -32,9 +32,9 @@ class BoardTest extends FunSuite {
     USR.setSide(s1)
     CPU.setSide(s2)
 
-    U_close_card = new CloseUnitCard("C1", 100)
-    U_ranged_card = new RangedUnitCard("R1", 100)
-    U_siege_card = new SiegeUnitCard("S1", 100)
+    U_close_card = new CloseUnitCard("C1", 100, "NULL")
+    U_ranged_card = new RangedUnitCard("R1", 100, "NULL")
+    U_siege_card = new SiegeUnitCard("S1", 100, "NULL")
     W_card = new WeatherCard("W1", "BF")
 
     USR.getHand().take()

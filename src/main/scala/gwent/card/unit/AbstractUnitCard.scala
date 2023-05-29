@@ -5,25 +5,22 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
 
 /** Represents the unit cards.
  *
- * A unit card is placed on one of three rows to accumulate strength. A unit card may have an ability.
+ * A unit card is placed on one of three rows to accumulate strength.
+ * Every unit card has an ability, but if it doesn't have an effect, it will be the null ability.
  *
  * @param name The name of the unit card.
- * @param strength The base strength of the unit card.             
- * @constructor Creates a new unit card with the specified name and strength.              
- * @example
- * {{{
- * val u_card = new AbstractUnitCard("C1", 100)
- * val U_card_effect = new AbstractUnitCard("C2", 100, "MB")
- * }}}
+ * @param strength The base strength of the unit card. 
+ * @param ability The ability of the unit card.
+ * @constructor Creates a new unit card with the specified name, strength, and ability.
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
-abstract class AbstractUnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
+abstract class AbstractUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractCard(name, ability) with Equals {
 
-  /** The ability of the card. */
-  private var ability: Option[String] = None // Abilities are strings only for now.
-
+  /** Returns the strength of the unit card. */
+  def getStrength(): Int = strength
+  
   /** Returns true if the other instance is of class AbstractUnitCard. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[AbstractUnitCard]
 
@@ -35,12 +32,6 @@ abstract class AbstractUnitCard(val name: String, val strength: Int) extends Abs
     } else {
       false
     }
-  }
-
-  /** Creates a new unit card with the specified name and ability. */
-  def this(name: String, strength: Int, ability: String) = {
-    this(name, strength)
-    this.ability = Some(ability)
   }
   
 }

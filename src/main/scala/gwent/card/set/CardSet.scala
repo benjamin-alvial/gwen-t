@@ -27,7 +27,7 @@ import scala.util.Random
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 class CardSet(build: Boolean) extends Equals {
 
@@ -37,26 +37,26 @@ class CardSet(build: Boolean) extends Equals {
   if (build) {
     list = ListBuffer(
       // Future: implement abilities.
-      new CloseUnitCard("C1", 100),
-      new CloseUnitCard("C1", 100),
-      new CloseUnitCard("C2", 100),
-      new CloseUnitCard("C2", 100),
-      new CloseUnitCard("C1", 100), // Morale Boost.
-      new CloseUnitCard("C1", 100), // Tight Bond.
+      new CloseUnitCard("C1", 100, "NULL"),
+      new CloseUnitCard("C1", 100, "NULL"),
+      new CloseUnitCard("C2", 100, "NULL"),
+      new CloseUnitCard("C2", 100, "NULL"),
+      new CloseUnitCard("C1", 100, "MB"), // Morale Boost.
+      new CloseUnitCard("C1", 100, "TB"), // Tight Bond.
 
-      new RangedUnitCard("R1", 100),
-      new RangedUnitCard("R1", 100),
-      new RangedUnitCard("R2", 100),
-      new RangedUnitCard("R2", 100),
-      new RangedUnitCard("R1", 100), // Morale Boost.
-      new RangedUnitCard("R1", 100), // Tight Bond.
+      new RangedUnitCard("R1", 100, "NULL"),
+      new RangedUnitCard("R1", 100, "NULL"),
+      new RangedUnitCard("R2", 100, "NULL"),
+      new RangedUnitCard("R2", 100, "NULL"),
+      new RangedUnitCard("R1", 100, "MB"), // Morale Boost.
+      new RangedUnitCard("R1", 100, "TB"), // Tight Bond.
 
-      new SiegeUnitCard("S1", 100),
-      new SiegeUnitCard("S1", 100),
-      new SiegeUnitCard("S2", 100),
-      new SiegeUnitCard("S2", 100),
-      new SiegeUnitCard("S1", 100), // Morale Boost.
-      new SiegeUnitCard("S1", 100), // Tight Bond.
+      new SiegeUnitCard("S1", 100, "NULL"),
+      new SiegeUnitCard("S1", 100, "NULL"),
+      new SiegeUnitCard("S2", 100, "NULL"),
+      new SiegeUnitCard("S2", 100, "NULL"),
+      new SiegeUnitCard("S1", 100, "MB"), // Morale Boost.
+      new SiegeUnitCard("S1", 100, "TB"), // Tight Bond.
 
       new WeatherCard("W1", "BF"), // Biting Frost.
       new WeatherCard("W1", "BF"), // Biting Frost.
@@ -115,7 +115,7 @@ class CardSet(build: Boolean) extends Equals {
   /** Removes the specified card from the list. */
   def take(x: Card): Unit = {
     if (list.isEmpty) throw new TakeFromEmptySetException
-    
+
     val election = new CardSet(build = false)
     var found = false // State variable to mark that we already took the 1 instance we wanted.
 
@@ -134,7 +134,7 @@ class CardSet(build: Boolean) extends Equals {
 
     list = election.list
     if (found == false) throw new CardNotInSetException
-    
+
   }
 
   /** Adds the given card to the list. */

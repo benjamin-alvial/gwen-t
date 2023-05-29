@@ -9,6 +9,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * A weather card is placed on the field and has an ability that affects the battlefield.
  *
  * @param name The name of the weather card.
+ * @param ability The ability of the weather card.
  * @constructor Creates a new weather card with the specified name and ability.
  * @example
  * {{{
@@ -16,9 +17,9 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
-class WeatherCard(val name: String, val ability: String) extends AbstractCard(name) with Equals {
+class WeatherCard(private val name: String, private val ability: String) extends AbstractCard(name, ability) with Equals {
 
   /** Returns true if the other instance is of class WeatherCard. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[WeatherCard]

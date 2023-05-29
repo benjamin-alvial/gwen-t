@@ -11,16 +11,15 @@ import munit.FunSuite
 class CardTest extends FunSuite {
 
   var U_plain_card: CloseUnitCard = null
-  //var U_effect_card: CloseUnitCard = null
+  var U_effect_card: CloseUnitCard = null
   var W_card: WeatherCard = null
 
   var Build_set: CardSet = null
   var Empty_set: CardSet = null
 
   override def beforeEach(context: BeforeEach): Unit = {
-    U_plain_card = new CloseUnitCard("C1", 100)
-    //U_effect_card = new CloseUnitCard("C2", 100)
-    //U_effect_card = new CloseUnitCard("C2", "MB")
+    U_plain_card = new CloseUnitCard("C1", 100, "NULL")
+    U_effect_card = new CloseUnitCard("C2", 100, "MB")
     W_card = new WeatherCard("W1", "BF")
 
     Build_set = new CardSet(true)
@@ -28,17 +27,17 @@ class CardTest extends FunSuite {
   }
 
   test("Card must have a name.") {
-    assertEquals(U_plain_card.name, expected = "C1")
-    //assertEquals(U_effect_card.name, expected = "C2")
-    assertEquals(W_card.name, expected = "W1")
+    assertEquals(U_plain_card.getName(), expected = "C1")
+    assertEquals(U_effect_card.getName(), expected = "C2")
+    assertEquals(W_card.getName(), expected = "W1")
   }
 
   test("Card must have base strength.") {
-    assertEquals(U_plain_card.strength, expected = 100)
+    assertEquals(U_plain_card.getStrength(), expected = 100)
   }
 
   test("Weather cards must have an effect.") {
-    assertEquals(W_card.ability, expected = "BF")
+    assertEquals(W_card.getAbility(), expected = "BF")
   }
 
   test("Card sets must have the desired amount of cards.") {
@@ -99,42 +98,42 @@ class CardTest extends FunSuite {
   test("Cards can be equal if they share name and abilities.") {
     // Card with itself.
     assertEquals(U_plain_card, U_plain_card)
-    //assertEquals(U_effect_card, U_effect_card)
+    assertEquals(U_effect_card, U_effect_card)
     assertEquals(W_card, W_card)
 
     // Card with another with same name and ability.
-    val U_plain_card_copy = new CloseUnitCard("C1", 100)
-    //assertEquals(U_plain_card, U_plain_card_copy)
+    val U_plain_card_copy = new CloseUnitCard("C1", 100, "NULL")
+    assertEquals(U_plain_card, U_plain_card_copy)
 
-    //val U_effect_card_copy = new AbstractUnitCard("C2", "MB")
-    //assertEquals(U_effect_card, U_effect_card_copy)
+    val U_effect_card_copy = new CloseUnitCard("C2", 100, "MB")
+    assertEquals(U_effect_card, U_effect_card_copy)
 
     val W_card_copy = new WeatherCard("W1", "BF")
     assertEquals(W_card, W_card_copy)
 
     // Card with object of another type (String).
     assertNotEquals[Any, Any](U_plain_card, "C1")
-    //assertNotEquals[Any, Any](U_effect_card, "C2")
+    assertNotEquals[Any, Any](U_effect_card, "C2")
     assertNotEquals[Any, Any](W_card, "W1")
 
-    // Cards of different subclasses (AbstractUnitCard and WeatherCard)
+    // Cards of different subclasses (CloseUnitCard and WeatherCard)
     assertNotEquals[Any, Any](U_plain_card, W_card)
-    //assertNotEquals[Any, Any](U_effect_card, W_card)
+    assertNotEquals[Any, Any](U_effect_card, W_card)
 
-    //val U_same_name_effect = new WeatherCard("XX", "ZZ")
-    //val W_same_name_effect = new CloseUnitCard("XX", "ZZ")
-    //assertNotEquals[Any, Any](U_same_name_effect, W_same_name_effect)
+    val U_same_name_effect = new WeatherCard("XX", "ZZ")
+    val W_same_name_effect = new CloseUnitCard("XX", 100, "ZZ")
+    assertNotEquals[Any, Any](U_same_name_effect, W_same_name_effect)
 
     // Cards with same name but different ability.
-    //val U_plain_other_effect = new AbstractUnitCard("C2", "MB")
-    //assertNotEquals(U_plain_card, U_plain_other_effect)
+    val U_plain_other_effect = new CloseUnitCard("C2", 100,"MB")
+    assertNotEquals(U_plain_card, U_plain_other_effect)
 
     val W_card_other_effect = new WeatherCard("W1", "IF")
     assertNotEquals(W_card, W_card_other_effect)
 
     // Cards with same ability but different name.
-    //val U_plain_other_name = new CloseUnitCard("C3", "MB")
-    //assertNotEquals(U_plain_card, U_plain_other_name)
+    val U_plain_other_name = new CloseUnitCard("C3", 100,"MB")
+    assertNotEquals(U_plain_card, U_plain_other_name)
 
     val W_card_other_name = new WeatherCard("W2", "BF")
     assertNotEquals(W_card, W_card_other_name)
