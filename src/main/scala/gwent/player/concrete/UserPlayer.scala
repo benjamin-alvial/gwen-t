@@ -20,9 +20,9 @@ import gwent.player.general.AbstractPlayer
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
-class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
+class UserPlayer(private val name: String) extends AbstractPlayer(name) with Equals {
 
   /** Returns true if the other instance is of class UserPlayer. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[UserPlayer]
@@ -31,7 +31,7 @@ class UserPlayer(name: String) extends AbstractPlayer(name) with Equals {
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[UserPlayer]
-      (this eq other) || (this.name == other.name)
+      (this eq other) || (this.name == other.getName())
     } else {
       false
     }
