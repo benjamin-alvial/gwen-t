@@ -2,7 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import cl.uchile.dcc.gwent.card.set.CardSet
-import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, UnitCard}
+import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, AbstractUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import munit.FunSuite
 
@@ -82,7 +82,7 @@ class CardTest extends FunSuite {
     val U_plain_card_copy = new CloseUnitCard("C1", 100)
     //assertEquals(U_plain_card, U_plain_card_copy)
 
-    //val U_effect_card_copy = new UnitCard("C2", "MB")
+    //val U_effect_card_copy = new AbstractUnitCard("C2", "MB")
     //assertEquals(U_effect_card, U_effect_card_copy)
 
     val W_card_copy = new WeatherCard("W1", "BF")
@@ -93,7 +93,7 @@ class CardTest extends FunSuite {
     //assertNotEquals[Any, Any](U_effect_card, "C2")
     assertNotEquals[Any, Any](W_card, "W1")
 
-    // Cards of different subclasses (UnitCard and WeatherCard)
+    // Cards of different subclasses (AbstractUnitCard and WeatherCard)
     assertNotEquals[Any, Any](U_plain_card, W_card)
     //assertNotEquals[Any, Any](U_effect_card, W_card)
 
@@ -102,7 +102,7 @@ class CardTest extends FunSuite {
     //assertNotEquals[Any, Any](U_same_name_effect, W_same_name_effect)
 
     // Cards with same name but different ability.
-    //val U_plain_other_effect = new UnitCard("C2", "MB")
+    //val U_plain_other_effect = new AbstractUnitCard("C2", "MB")
     //assertNotEquals(U_plain_card, U_plain_other_effect)
 
     val W_card_other_effect = new WeatherCard("W1", "IF")

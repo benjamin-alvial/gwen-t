@@ -1,18 +1,16 @@
 package cl.uchile.dcc
-package gwent.board.row
+package gwent.board.unit
 
-import gwent.board.row.AbstractRow
 import gwent.card.unit.RangedUnitCard
+import cl.uchile.dcc.gwent.board.general.AbstractZone
 
-/** Represents the row where only cards of type [[RangedUnitCard]] are played.
+/** Represents the unit where only cards of type [[RangedUnitCard]] are played.
  *
- * @constructor Creates a new row for ranged.
- *
+ * @constructor Creates a new unit for ranged.
  * @example
  * {{{
  * val ranged = new RangedRow()
  * }}}
- *
  * @author benjamin-alvial
  * @since 0.1.0
  * @version 0.1.0

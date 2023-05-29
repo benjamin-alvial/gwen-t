@@ -1,12 +1,11 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.board.general.{Board, Side}
+import cl.uchile.dcc.gwent.board.general.{AbstractZone, Board, Side}
 import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
-import cl.uchile.dcc.gwent.board.row.AbstractRow
-import cl.uchile.dcc.gwent.board.zone.WeatherZone
+import cl.uchile.dcc.gwent.board.weather.WeatherZone
 import munit.FunSuite
 
 /** Tests methods related to a Player playing Cards on the Zones of the Board. */
@@ -65,7 +64,7 @@ class BoardTest extends FunSuite {
 
   }
 
-  test("A board has two sides and a weather zone.") {
+  test("A board has two sides and a weather weather.") {
     assertEquals(b.getUserSide(), s1)
     assertEquals(b.getComputerSide(), s2)
   }
@@ -74,11 +73,11 @@ class BoardTest extends FunSuite {
 
   }
 
-  test("A row has a card set, initially empty.") {
+  test("A unit has a card set, initially empty.") {
 
   }
 
-  test("Close combat unit card played by Player must be removed from hand and added to close combat zone.") {
+  test("Close combat unit card played by Player must be removed from hand and added to close combat weather.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_close_card)
     val count_in_zone: Int = USR.getSide().getCloseZone().getCurrentCards().occurrences(U_close_card)
     USR.play(U_close_card)
@@ -86,7 +85,7 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide().getCloseZone().getCurrentCards().occurrences(U_close_card), count_in_zone+1)
   }
 
-  test("Ranged unit card played by Player must be removed from hand and added to ranged zone.") {
+  test("Ranged unit card played by Player must be removed from hand and added to ranged weather.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_ranged_card)
     val count_in_zone: Int = USR.getSide().getRangedZone().getCurrentCards().occurrences(U_ranged_card)
     USR.play(U_ranged_card)
@@ -94,7 +93,7 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide().getRangedZone().getCurrentCards().occurrences(U_ranged_card), count_in_zone + 1)
   }
 
-  test("Siege unit card played by Player must be removed from hand and added to siege zone.") {
+  test("Siege unit card played by Player must be removed from hand and added to siege weather.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_siege_card)
     val count_in_zone: Int = USR.getSide().getSiegeZone().getCurrentCards().occurrences(U_siege_card)
     USR.play(U_siege_card)
@@ -102,7 +101,7 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide().getSiegeZone().getCurrentCards().occurrences(U_siege_card), count_in_zone + 1)
   }
 
-  test("Weather card played by Player must be removed from hand and added to weather zone.") {
+  test("Weather card played by Player must be removed from hand and added to weather weather.") {
     val count_in_hand: Int = USR.getHand().occurrences(W_card)
     val count_in_zone: Int = USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card)
     USR.play(W_card)

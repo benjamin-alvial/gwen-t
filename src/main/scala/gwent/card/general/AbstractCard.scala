@@ -1,12 +1,12 @@
 package cl.uchile.dcc
 package gwent.card.general
 
-import gwent.card.unit.UnitCard
+import gwent.card.unit.AbstractUnitCard
 import gwent.card.weather.WeatherCard
 
 /** Represents a card.
  *
- * The card can be a [[UnitCard]] or [[WeatherCard]].
+ * The card can be a [[AbstractUnitCard]] or [[WeatherCard]].
  *
  * @param name The name of the card.
  * @constructor Creates a new card with the specified name.

@@ -3,14 +3,14 @@ package gwent.board.general
 
 import gwent.card.weather.WeatherCard
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
-import cl.uchile.dcc.gwent.board.zone.{WeatherZone, Zone}
+import cl.uchile.dcc.gwent.board.weather.WeatherZone
 
 /** Represents the physical board on which the game is played.
  *
  * The board has two sides, one for [[UserPlayer]], one for [[ComputerPlayer]],
- * and a zone where a [[WeatherCard]] can be played.
+ * and a weather where a [[WeatherCard]] can be played.
  *
- * @constructor Creates a new board with a side for each player and a zone
+ * @constructor Creates a new board with a side for each player and a weather
  *              for weather cards.
  * @example
  * {{{
@@ -28,7 +28,7 @@ class Board {
   /** Section for the weather cards. */
   private val weather_zone: WeatherZone = new WeatherZone()
   
-  /** Receives a weather card and calls on the corresponding zone to play it. */
+  /** Receives a weather card and calls on the corresponding weather to play it. */
   def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
 
   /** Returns the side of the board that belongs to the User player. */
@@ -37,7 +37,7 @@ class Board {
   /** Returns the side of the board that belongs to the Computer player. */
   def getComputerSide(): Side = computer_side
 
-  /** Returns the weather zone of the board. */
+  /** Returns the weather weather of the board. */
   def getWeatherZone(): WeatherZone = weather_zone
   
 }

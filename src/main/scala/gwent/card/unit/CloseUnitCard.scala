@@ -12,7 +12,7 @@ import gwent.board.general.Side
  * @since 0.1.0
  * @version 0.1.1
  */
-class CloseUnitCard(override val name: String, override val strength: Int) extends UnitCard(name, strength) {
+class CloseUnitCard(override val name: String, override val strength: Int) extends AbstractUnitCard(name, strength) {
   /** Sends a message to the given side to receive the card of type close combat. */
   def play(s: Side): Unit = s.receiveClose(this)
 

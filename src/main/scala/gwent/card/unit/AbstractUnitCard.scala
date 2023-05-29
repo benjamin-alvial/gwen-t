@@ -12,25 +12,25 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * @constructor Creates a new unit card with the specified name and strength.              
  * @example
  * {{{
- * val u_card = new UnitCard("C1", 100)
- * val U_card_effect = new UnitCard("C2", 100, "MB")
+ * val u_card = new AbstractUnitCard("C1", 100)
+ * val U_card_effect = new AbstractUnitCard("C2", 100, "MB")
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
  * @version 0.1.2
  */
-abstract class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
+abstract class AbstractUnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
 
   /** The ability of the card. */
   private var ability: Option[String] = None // Abilities are strings only for now.
 
-  /** Returns true if the other instance is of class UnitCard. */
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[UnitCard]
+  /** Returns true if the other instance is of class AbstractUnitCard. */
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[AbstractUnitCard]
 
-  /** Returns true if the two instances of UnitCard share the same name and ability. */
+  /** Returns true if the two instances of AbstractUnitCard share the same name and ability. */
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
-      val other = that.asInstanceOf[UnitCard]
+      val other = that.asInstanceOf[AbstractUnitCard]
       (this eq other) || ((this.name == other.name) && (this.ability == other.ability) && (this.strength == other.strength))
     } else {
       false
