@@ -5,7 +5,9 @@ import gwent.card.unit.CloseUnitCard
 import gwent.card.unit.RangedUnitCard
 import gwent.card.unit.SiegeUnitCard
 import gwent.card.weather.WeatherCard
+
 import cl.uchile.dcc.gwent.card.general.Card
+import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -25,7 +27,7 @@ import scala.util.Random
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 class CardSet(build: Boolean) extends Equals {
 
@@ -112,22 +114,27 @@ class CardSet(build: Boolean) extends Equals {
 
   /** Removes the specified card from the list. */
   def take(x: Card): Unit = {
+    if (list.isEmpty) throw new TakeFromEmptySetException
+    
     val election = new CardSet(build = false)
     var found = false // State variable to mark that we already took the 1 instance we wanted.
 
     for (i <- 1 to getAmount()) {
-      val taken = take()
+      val taken = take() // Take the first card.
 
       if (found == true) {
-        election.put(taken)
+        election.put(taken) // If it has already been found, keep the other cards.
       } else {
         if (taken != x) {
-          election.put(taken)
-        } else found = true
+          election.put(taken) // If it hasn't been found, keep searching and keep others.
+        } else found = true // If it is found, don't keep it.
       }
 
     }
+
     list = election.list
+    if (found == false) throw new CardNotInSetException
+    
   }
 
   /** Adds the given card to the list. */

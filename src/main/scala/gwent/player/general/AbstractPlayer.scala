@@ -5,6 +5,7 @@ import gwent.card.set.CardSet
 
 import cl.uchile.dcc.gwent.board.general.Side
 import cl.uchile.dcc.gwent.card.general.Card
+import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
@@ -17,7 +18,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
@@ -57,9 +58,10 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
   /** Decreases the current amount of gems by one if there are still gems left. */
   def loseGem(): Unit = {
-    if (getGems() > 0) {
-      setGems(getGems() - 1)
-    }
+
+    if (getGems() == 0) throw new NoMoreGemsToRemoveException
+    else setGems(getGems() - 1)
+    
   }
 
   /** Removes a random card from deck and puts it in hand. */
@@ -73,8 +75,15 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
 
   /** Calls for a card to play itself on the given side. */
   def play(c: Card): Unit = {
-    getHand().take(c)
-    c.play(side)
+    try{
+      getHand().take(c)
+      c.play(side)
+    }
+    catch {
+      case tfes: TakeFromEmptySetException => println("Card cannot be taken from empty card set.")
+      case cnis: CardNotInSetException => println("Card cannot be taken from set that doesn't contain it.")
+    }
+
   }
 
 }

@@ -2,8 +2,9 @@ package cl.uchile.dcc
 package gwent
 
 import cl.uchile.dcc.gwent.card.set.CardSet
-import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, AbstractUnitCard}
+import cl.uchile.dcc.gwent.card.unit.{AbstractUnitCard, CloseUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
+import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 import munit.FunSuite
 
 /** Tests methods related to Cards and CardSets. */
@@ -45,15 +46,38 @@ class CardTest extends FunSuite {
     assertEquals(Build_set.getAmount(), expected = 25)
   }
 
-  test("Cards can be taken from non-empty set.") {
+  test("Cards can be taken from non-empty set that contain them.") {
     assertEquals(Build_set.getAmount(), expected = 25)
-    assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 4)
 
     Build_set.take(U_plain_card)
 
     assertEquals(Build_set.getAmount(), expected = 24)
-    assertEquals(Build_set.occurrences(U_plain_card), expected = 1)
-    // Future: exception for taking from empty set.
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 3)
+  }
+
+  test("Card cannot be taken from empty set.") {
+    assertEquals(Empty_set.getAmount(), 0)
+    intercept[TakeFromEmptySetException] {
+      Empty_set.take(U_plain_card)
+    }
+    assertEquals(Empty_set.getAmount(), 0)
+  }
+
+  test("Card cannot be taken from set that doesn't contain it.") {
+    assertEquals(Build_set.getAmount(), expected = 25)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 4)
+
+    intercept[CardNotInSetException] {
+      Build_set.take(U_plain_card)
+      Build_set.take(U_plain_card)
+      Build_set.take(U_plain_card)
+      Build_set.take(U_plain_card)
+      Build_set.take(U_plain_card)
+    }
+
+    assertEquals(Build_set.getAmount(), expected = 21)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 0)
   }
 
   test("Cards can be put into a set.")  {

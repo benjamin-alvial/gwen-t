@@ -4,6 +4,7 @@ package gwent
 import cl.uchile.dcc.gwent.card.set.CardSet
 import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.card.weather.WeatherCard
+import cl.uchile.dcc.gwent.exceptions.NoMoreGemsToRemoveException
 import munit.FunSuite
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
@@ -34,7 +35,9 @@ class PlayerTest extends FunSuite {
     USR.loseGem()
     assertEquals(USR.getGems(), 0)
     assertEquals(CPU.getGems(), 2)
-    USR.loseGem()
+    intercept[NoMoreGemsToRemoveException] {
+      USR.loseGem()
+    }
     assertEquals(USR.getGems(), 0)
     assertEquals(CPU.getGems(), 2)
   }
