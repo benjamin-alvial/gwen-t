@@ -22,7 +22,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
 abstract class UnitCard(val name: String, val strength: Int) extends AbstractCard(name) with Equals {
 
   /** The ability of the card. */
-  var ability: Option[String] = None // Abilities are strings only for now.
+  private var ability: Option[String] = None // Abilities are strings only for now.
 
   /** Returns true if the other instance is of class UnitCard. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[UnitCard]

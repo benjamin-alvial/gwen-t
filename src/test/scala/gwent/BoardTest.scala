@@ -28,7 +28,7 @@ class BoardTest extends FunSuite {
     s2 = new Side(b)
 
     USR = new UserPlayer("Kermit")
-    CPU = new UserPlayer("Computer")
+    CPU = new ComputerPlayer("Computer")
 
     USR.setSide(s1)
     CPU.setSide(s2)
@@ -49,8 +49,8 @@ class BoardTest extends FunSuite {
   }
 
   test("Two boards are equal if have the same sides and weather zones.") {
-    b1 = new Board()
-    b2 = new Board()
+    val b1 = new Board()
+    val b2 = new Board()
   }
 
   test("Two sides are equal if they have the same cards") {
@@ -80,34 +80,34 @@ class BoardTest extends FunSuite {
 
   test("Close combat unit card played by Player must be removed from hand and added to close combat zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_close_card)
-    val count_in_zone: Int = USR.getSide().zone_close.getCurrentCards().occurrences(U_close_card)
+    val count_in_zone: Int = USR.getSide().getCloseZone().getCurrentCards().occurrences(U_close_card)
     USR.play(U_close_card)
     assertEquals(USR.getHand().occurrences(U_close_card), count_in_hand-1)
-    assertEquals(USR.getSide().zone_close.getCurrentCards().occurrences(U_close_card), count_in_zone+1)
+    assertEquals(USR.getSide().getCloseZone().getCurrentCards().occurrences(U_close_card), count_in_zone+1)
   }
 
   test("Ranged unit card played by Player must be removed from hand and added to ranged zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_ranged_card)
-    val count_in_zone: Int = USR.getSide().zone_ranged.getCurrentCards().occurrences(U_ranged_card)
+    val count_in_zone: Int = USR.getSide().getRangedZone().getCurrentCards().occurrences(U_ranged_card)
     USR.play(U_ranged_card)
     assertEquals(USR.getHand().occurrences(U_ranged_card), count_in_hand - 1)
-    assertEquals(USR.getSide().zone_ranged.getCurrentCards().occurrences(U_ranged_card), count_in_zone + 1)
+    assertEquals(USR.getSide().getRangedZone().getCurrentCards().occurrences(U_ranged_card), count_in_zone + 1)
   }
 
   test("Siege unit card played by Player must be removed from hand and added to siege zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_siege_card)
-    val count_in_zone: Int = USR.getSide().zone_siege.getCurrentCards().occurrences(U_siege_card)
+    val count_in_zone: Int = USR.getSide().getSiegeZone().getCurrentCards().occurrences(U_siege_card)
     USR.play(U_siege_card)
     assertEquals(USR.getHand().occurrences(U_siege_card), count_in_hand - 1)
-    assertEquals(USR.getSide().zone_siege.getCurrentCards().occurrences(U_siege_card), count_in_zone + 1)
+    assertEquals(USR.getSide().getSiegeZone().getCurrentCards().occurrences(U_siege_card), count_in_zone + 1)
   }
 
   test("Weather card played by Player must be removed from hand and added to weather zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(W_card)
-    val count_in_zone: Int = USR.getSide().board.zone_weather.getCurrentCards().occurrences(W_card)
+    val count_in_zone: Int = USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card)
     USR.play(W_card)
     assertEquals(USR.getHand().occurrences(W_card), count_in_hand - 1)
-    assertEquals(USR.getSide().board.zone_weather.getCurrentCards().occurrences(W_card), count_in_zone + 1)
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card), count_in_zone + 1)
   }
 
 }

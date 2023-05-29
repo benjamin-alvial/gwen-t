@@ -40,6 +40,6 @@ class ComputerPlayer(name: String) extends AbstractPlayer(name) with Equals {
   /** Decides which card to play and plays it. The first is chosen. */
   // Future: implement real automatic strategy calculating power of current played cards.
   def strategy(): Unit = {
-    this.play(getHand().list(0))
+    this.play(getHand().getList()(0))
   }
 }

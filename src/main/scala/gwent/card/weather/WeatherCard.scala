@@ -34,6 +34,6 @@ class WeatherCard(val name: String, val ability: String) extends AbstractCard(na
   }
 
   /** Sends a message to the given side's board to receive the card of type weather. */
-  def play(s: Side): Unit = s.board.receiveWeather(this)
+  def play(s: Side): Unit = s.getBoard().receiveWeather(this)
 
 }

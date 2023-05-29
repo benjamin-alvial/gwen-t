@@ -22,12 +22,22 @@ import cl.uchile.dcc.gwent.board.zone.{WeatherZone, Zone}
  */
 class Board {
   /** Section for the user player. */
-  val section_user: Side = new Side(this)
+  private val user_side: Side = new Side(this)
   /** Section for the computer player. */
-  val section_computer: Side = new Side(this)
+  private val computer_side: Side = new Side(this)
   /** Section for the weather cards. */
-  val zone_weather: WeatherZone = new WeatherZone()
+  private val weather_zone: WeatherZone = new WeatherZone()
   
   /** Receives a weather card and calls on the corresponding zone to play it. */
-  def receiveWeather(c: WeatherCard): Unit = zone_weather.play(c)
+  def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
+
+  /** Returns the side of the board that belongs to the User player. */
+  def getUserSide(): Side = user_side
+
+  /** Returns the side of the board that belongs to the Computer player. */
+  def getComputerSide(): Side = computer_side
+
+  /** Returns the weather zone of the board. */
+  def getWeatherZone(): WeatherZone = weather_zone
+  
 }

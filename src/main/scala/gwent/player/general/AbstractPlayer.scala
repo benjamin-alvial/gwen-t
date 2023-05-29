@@ -36,6 +36,7 @@ abstract class AbstractPlayer(val name: String) extends Player with Equals {
   /** The side of the board of the player, composed of three rows on which unit cards can be played. */
   private var side: Side = null
 
+  /** Sets the side of the player. */
   def setSide(s: Side) = {
     side = s
   }

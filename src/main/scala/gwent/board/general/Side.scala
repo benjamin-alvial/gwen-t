@@ -25,21 +25,33 @@ import cl.uchile.dcc.gwent.board.zone.Zone
  */
 class Side(b: Board) {
   /** Zone for the close combat cards. */
-  val zone_close: CloseRow = new CloseRow()
+  private val close_zone: CloseRow = new CloseRow()
   /** Zone for the ranged cards. */
-  val zone_ranged: RangedRow = new RangedRow()
+  private val ranged_zone: RangedRow = new RangedRow()
   /** Zone for the siege cards. */
-  val zone_siege: SiegeRow = new SiegeRow()
+  private val siege_zone: SiegeRow = new SiegeRow()
   /** Board where the side belongs to. */
-  val board: Board = b
+  private val board: Board = b
 
   /** Receives a close combat card and calls on the corresponding zone to play it. */
-  def receiveClose(c: CloseUnitCard): Unit = zone_close.play(c)
+  def receiveClose(c: CloseUnitCard): Unit = close_zone.play(c)
 
   /** Receives a ranged card and calls on the corresponding zone to play it. */
-  def receiveRanged(c: RangedUnitCard): Unit = zone_ranged.play(c)
+  def receiveRanged(c: RangedUnitCard): Unit = ranged_zone.play(c)
 
   /** Receives a siege card and calls on the corresponding zone to play it. */
-  def receiveSiege(c: SiegeUnitCard): Unit = zone_siege.play(c)
+  def receiveSiege(c: SiegeUnitCard): Unit = siege_zone.play(c)
+
+  /** Returns the close combat zone of the side. */
+  def getCloseZone(): CloseRow = close_zone
+
+  /** Returns the ranged zone of the side. */
+  def getRangedZone(): RangedRow = ranged_zone
+
+  /** Returns the siege zone of the side. */
+  def getSiegeZone(): SiegeRow = siege_zone
+
+  /** Returns the board to where the side belongs. */
+  def getBoard(): Board = board
 
 }

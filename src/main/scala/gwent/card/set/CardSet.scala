@@ -30,7 +30,7 @@ import scala.util.Random
 class CardSet(build: Boolean) extends Equals {
 
   /** The list of cards. */
-  var list: ListBuffer[Card] = new ListBuffer()
+  private var list: ListBuffer[Card] = new ListBuffer()
   
   if (build) {
     list = ListBuffer(
@@ -65,6 +65,9 @@ class CardSet(build: Boolean) extends Equals {
       new WeatherCard("W4", "CW") // Clear Weather.
       )
   }
+
+  /** Returns the list of cards in the card set. */
+  def getList(): ListBuffer[Card] = list
 
   /** Returns true if the other instance is of class CardSet. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[CardSet]
