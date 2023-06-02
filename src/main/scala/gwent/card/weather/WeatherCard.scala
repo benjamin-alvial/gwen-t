@@ -17,7 +17,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class WeatherCard(private val name: String, private val ability: String) extends AbstractCard(name, ability) with Equals {
 
@@ -28,7 +28,7 @@ class WeatherCard(private val name: String, private val ability: String) extends
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[WeatherCard]
-      (this eq other) || ((this.name == other.name) && (this.ability == other.ability))
+      (this eq other) || ((this.name == other.getName()) && (this.ability == other.getAbility()))
     } else {
       false
     }

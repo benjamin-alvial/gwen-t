@@ -18,9 +18,9 @@ import cl.uchile.dcc.gwent.board.weather.WeatherZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
-class Board {
+class Board extends Equals {
   /** Section for the user player. */
   private val user_side: Side = new Side(this)
   /** Section for the computer player. */
@@ -39,5 +39,18 @@ class Board {
 
   /** Returns the weather weather of the board. */
   def getWeatherZone(): WeatherZone = weather_zone
+
+  /** Returns true if the other instance is of class Board. */
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[Board]
+
+  /** Returns true if the two instances of Board share the same sides and weather zone. */
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[Board]
+      (this eq other) || (this.getUserSide() == other.getUserSide() && this.getComputerSide() == other.getComputerSide() && this.getWeatherZone() == other.getWeatherZone())
+    } else {
+      false
+    }
+  }
   
 }

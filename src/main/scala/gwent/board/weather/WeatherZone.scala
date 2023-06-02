@@ -13,9 +13,9 @@ import cl.uchile.dcc.gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
-class WeatherZone extends AbstractZone {
+class WeatherZone extends AbstractZone with Equals {
 
   /** Receives a weather card and places it on its weather, removing the old one. */
   override def play(c: Card): Unit = {
@@ -23,4 +23,17 @@ class WeatherZone extends AbstractZone {
     getCurrentCards().put(c)
   }
 
+  /** Returns true if the other instance is of class WeatherZone. */
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[WeatherZone]
+
+  /** Returns true if the two instances of WeatherZone share the same current cards. */
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[WeatherZone]
+      (this eq other) || (this.getCurrentCards() == other.getCurrentCards())
+    } else {
+      false
+    }
+  }
+  
 }
