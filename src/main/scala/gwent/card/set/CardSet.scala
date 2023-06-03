@@ -112,7 +112,8 @@ class CardSet(build: Boolean) extends Equals {
     list.remove(idx)
   }
 
-  /** Removes the specified card from the list. */
+  /** Removes the specified card from the list. 
+   * @param c The card to be removed from the card set. */
   def take(x: Card): Unit = {
     if (list.isEmpty) throw new TakeFromEmptySetException
 
@@ -137,7 +138,8 @@ class CardSet(build: Boolean) extends Equals {
 
   }
 
-  /** Adds the given card to the list. */
+  /** Adds the given card to the list. 
+   * @param x The card to be added to the card set. */
   def put(x: Card): Unit = list.append(x)
 
   /** Chooses a subset of cards from the list.
@@ -168,7 +170,8 @@ class CardSet(build: Boolean) extends Equals {
     Random.shuffle(list)
   }
 
-  /** Counts the occurrences of a given card in the list. */
+  /** Counts the occurrences of a given card in the list. 
+   * @param x The card which will be counted. */
   def occurrences(x: Card): Int = {
     var i: Int = 0
     for (c <- list) {

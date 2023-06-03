@@ -30,22 +30,25 @@ class Side(b: Board) extends Equals {
   /** Board where the side belongs to. */
   private val board: Board = b
 
-  /** Receives a close combat card and calls on the corresponding zone to play it. */
+  /** Receives a close combat card and calls on the corresponding zone to play it. 
+   * @param c The card to be played on the close combat zone. */
   def receiveClose(c: CloseUnitCard): Unit = close_zone.play(c)
 
-  /** Receives a ranged card and calls on the corresponding zone to play it. */
+  /** Receives a ranged card and calls on the corresponding zone to play it. 
+   * @param c The card to be played on the ranged zone. */
   def receiveRanged(c: RangedUnitCard): Unit = ranged_zone.play(c)
 
-  /** Receives a siege card and calls on the corresponding zone to play it. */
+  /** Receives a siege card and calls on the corresponding zone to play it. 
+   * @param c The card to be played on the siege zone. */
   def receiveSiege(c: SiegeUnitCard): Unit = siege_zone.play(c)
 
-  /** Returns the close combat weather of the side. */
+  /** Returns the close combat zone of the side. */
   def getCloseZone(): CloseRow = close_zone
 
-  /** Returns the ranged weather of the side. */
+  /** Returns the ranged zone of the side. */
   def getRangedZone(): RangedRow = ranged_zone
 
-  /** Returns the siege weather of the side. */
+  /** Returns the siege zone of the side. */
   def getSiegeZone(): SiegeRow = siege_zone
 
   /** Returns the board to where the side belongs. */

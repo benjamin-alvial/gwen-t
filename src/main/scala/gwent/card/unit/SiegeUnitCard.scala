@@ -3,7 +3,7 @@ package gwent.card.unit
 
 import gwent.board.general.Side
 
-/** Represents the unit cards of type siege.
+/** Represents the unit cards of type siege. They can only be placed in Siege zones.
  *
  * @param name The name of the card.
  * @param strength The base strength of the card.
@@ -19,7 +19,8 @@ import gwent.board.general.Side
  * @version 0.1.3
  */
 class SiegeUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractUnitCard(name, strength, ability) with Equals {
-  /** Sends a message to the given side to receive the card of type siege. */
+  /** Sends a message to the given side to receive the card of type siege. 
+   * @param s The side to which the card will be played. */
   def play(s: Side): Unit = s.receiveSiege(this)
 
   /** Returns true if the other instance is of class SiegeUnitCard. */

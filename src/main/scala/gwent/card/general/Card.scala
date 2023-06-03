@@ -13,7 +13,8 @@ import cl.uchile.dcc.gwent.board.general.Side
  * @version 0.1.1
  */
 trait Card {
-  /** Places the card on the board to carry out its effects and add strength to its unit.
-   * The target weather for the card is resolved by its type. */
+  /** Places the card on the board to carry out its effects and add strength to its row.
+   * The target zone for the card is resolved by its type. 
+   * @param side The side onto which the card will be played. */
   def play(side: Side): Unit
 }

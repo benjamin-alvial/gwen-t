@@ -8,9 +8,9 @@ import cl.uchile.dcc.gwent.board.weather.WeatherZone
 /** Represents the physical board on which the game is played.
  *
  * The board has two sides, one for [[UserPlayer]], one for [[ComputerPlayer]],
- * and a weather where a [[WeatherCard]] can be played.
+ * and a weather zone where a [[WeatherCard]] can be played.
  *
- * @constructor Creates a new board with a side for each player and a weather
+ * @constructor Creates a new board with a side for each player and a weather zone
  *              for weather cards.
  * @example
  * {{{
@@ -28,7 +28,8 @@ class Board extends Equals {
   /** Section for the weather cards. */
   private val weather_zone: WeatherZone = new WeatherZone()
   
-  /** Receives a weather card and calls on the corresponding weather to play it. */
+  /** Receives a weather card and calls on the corresponding weather to play it. 
+   * @param c The card to be played on weather zone. */
   def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
 
   /** Returns the side of the board that belongs to the User player. */
@@ -37,7 +38,7 @@ class Board extends Equals {
   /** Returns the side of the board that belongs to the Computer player. */
   def getComputerSide(): Side = computer_side
 
-  /** Returns the weather weather of the board. */
+  /** Returns the weather zone of the board. */
   def getWeatherZone(): WeatherZone = weather_zone
 
   /** Returns true if the other instance is of class Board. */

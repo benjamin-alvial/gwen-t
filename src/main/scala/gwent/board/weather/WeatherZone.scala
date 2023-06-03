@@ -6,7 +6,7 @@ import cl.uchile.dcc.gwent.board.general.AbstractZone
 
 /** Represents the weather where only cards of type [[WeatherCard]] are played.
  *
- * @constructor Creates a new weather for weather.
+ * @constructor Creates a new zone for weather.
  * @example
  * {{{
  * val weather = new WeatherZone()
@@ -17,7 +17,8 @@ import cl.uchile.dcc.gwent.board.general.AbstractZone
  */
 class WeatherZone extends AbstractZone with Equals {
 
-  /** Receives a weather card and places it on its weather, removing the old one. */
+  /** Receives a weather card and places it on its zone, removing the old one. 
+   * @param c The card to be played on the weather zone. */
   override def play(c: Card): Unit = {
     if (getCurrentCards().getAmount() != 0) getCurrentCards().take()
     getCurrentCards().put(c)

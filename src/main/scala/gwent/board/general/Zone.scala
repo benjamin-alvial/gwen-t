@@ -13,6 +13,7 @@ import gwent.card.general.Card
  * @version 0.1.0
  */
 trait Zone {
-  /** Plays a card on the weather. */
+  /** Plays a card on the zone. 
+   * @param c The card to be played on the zone. */
   def play(c: Card): Unit
 }

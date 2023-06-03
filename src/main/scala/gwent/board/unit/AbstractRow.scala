@@ -13,5 +13,5 @@ import gwent.board.general.AbstractZone
  * @version 0.1.1
  */
 abstract class AbstractRow extends AbstractZone {
-
+  // Future: implement method to get the total strength of the cards in the row, useful to implement Computer's strategy.
 }

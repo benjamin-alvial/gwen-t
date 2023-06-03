@@ -67,7 +67,7 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
 
   }
 
-  /** Removes the first card from deck and puts it in hand. */
+  /** Removes and returns the first card from deck and puts it in hand. */
   def draw(): Card = {
     val taken = deck.take()
     hand.put(taken)
@@ -77,7 +77,8 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
   /** Returns the side of the player. */
   def getSide(): Side = side
 
-  /** Calls for a card to play itself on the given side. */
+  /** Calls for a card to play itself on the given side. 
+   * @param c The card that the player will play. */
   def play(c: Card): Unit = {
     try{
       getHand().take(c)

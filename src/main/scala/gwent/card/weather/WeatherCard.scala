@@ -7,6 +7,7 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
 /** Represents the weather cards.
  *
  * A weather card is placed on the field and has an ability that affects the battlefield.
+ * It can only be placed in the Board's weather zone.
  *
  * @param name The name of the weather card.
  * @param ability The ability of the weather card.
@@ -34,7 +35,8 @@ class WeatherCard(private val name: String, private val ability: String) extends
     }
   }
 
-  /** Sends a message to the given side's board to receive the card of type weather. */
+  /** Sends a message to the given side's board to receive the card of type weather. 
+   * @param s The side to which the card will be played. */
   def play(s: Side): Unit = s.getBoard().receiveWeather(this)
 
 }
