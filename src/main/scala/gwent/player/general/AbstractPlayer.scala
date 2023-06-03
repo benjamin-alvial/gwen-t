@@ -50,7 +50,7 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
 
   /** Sets the current amount of gems to the given value. */
   private def setGems(x: Int): Unit = {
-    if (x>0) gems = x
+    if (x>=0) gems = x
   }
 
   /** Returns the CardSet of drawable cards. */
