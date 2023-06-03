@@ -47,13 +47,20 @@ class BoardTest extends FunSuite {
     USR.getHand().put(W_card)
   }
 
-  test("Two boards are equal if have the same sides and weather zones.") {
-    val b1 = new Board()
-    val b2 = new Board()
-  }
+  test("Two sides are equal if they have the same cards and they belong to the same board") {
+    s1.receiveClose(U_close_card)
+    s2.receiveClose(U_close_card)
+    s1.receiveRanged(U_ranged_card)
+    s2.receiveRanged(U_ranged_card)
+    s1.receiveSiege(U_siege_card)
+    s2.receiveSiege(U_siege_card)
 
-  test("Two sides are equal if they have the same cards") {
+    assertEquals(s1, s1)
+    assertEquals(s2, s2)
+    assertEquals(s1, s2)
 
+    val name_string: String = "s1"
+    assertNotEquals[Any, Any](s1, name_string)
   }
 
   test("Two rows are equal if they are of the same type and have the same cards.") {
@@ -61,7 +68,17 @@ class BoardTest extends FunSuite {
   }
 
   test("Two weather zones are equal if they have same cards.") {
+    val w_zone_1 = new WeatherZone()
+    val w_zone_2 = new WeatherZone()
+    w_zone_1.play(W_card)
+    w_zone_2.play(W_card)
 
+    assertEquals(w_zone_1, w_zone_1)
+    assertEquals(w_zone_2, w_zone_2)
+    assertEquals(w_zone_1, w_zone_2)
+
+    val name_string: String = "w_zone_1"
+    assertNotEquals[Any, Any](w_zone_1, name_string)
   }
 
   test("A board has two sides and a weather weather.") {
