@@ -13,13 +13,13 @@ import cl.uchile.dcc.gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 class WeatherZone extends AbstractZone with Equals {
 
   /** Receives a weather card and places it on its weather, removing the old one. */
   override def play(c: Card): Unit = {
-    getCurrentCards().take(c)
+    if (getCurrentCards().getAmount() != 0) getCurrentCards().take()
     getCurrentCards().put(c)
   }
 

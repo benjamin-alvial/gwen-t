@@ -77,6 +77,19 @@ class BoardTest extends FunSuite {
 
   }
 
+  test("Zones in board must all begin empty.") {
+    assertEquals(USR.getSide().getCloseZone().getCurrentCards().getAmount(), 0)
+    assertEquals(CPU.getSide().getCloseZone().getCurrentCards().getAmount(), 0)
+    assertEquals(USR.getSide().getRangedZone().getCurrentCards().getAmount(), 0)
+    assertEquals(CPU.getSide().getRangedZone().getCurrentCards().getAmount(), 0)
+    assertEquals(USR.getSide().getSiegeZone().getCurrentCards().getAmount(), 0)
+    assertEquals(CPU.getSide().getSiegeZone().getCurrentCards().getAmount(), 0)
+
+    // Access to WeatherZone can be through either player.
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().getAmount(), 0)
+    assertEquals(CPU.getSide().getBoard().getWeatherZone().getCurrentCards().getAmount(), 0)
+  }
+
   test("Close combat unit card played by Player must be removed from hand and added to close combat weather.") {
     val count_in_hand: Int = USR.getHand().occurrences(U_close_card)
     val count_in_zone: Int = USR.getSide().getCloseZone().getCurrentCards().occurrences(U_close_card)
@@ -101,12 +114,24 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide().getSiegeZone().getCurrentCards().occurrences(U_siege_card), count_in_zone + 1)
   }
 
-  test("Weather card played by Player must be removed from hand and added to weather weather.") {
+  test("Weather card played by Player must be removed from hand and added to weather zone.") {
     val count_in_hand: Int = USR.getHand().occurrences(W_card)
-    val count_in_zone: Int = USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card)
     USR.play(W_card)
     assertEquals(USR.getHand().occurrences(W_card), count_in_hand - 1)
-    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card), count_in_zone + 1)
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card), 1)
+
+    // In fact, the amount of cards in the weather zone can be only at most one at any given moment.
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().getAmount(), 1)
+
+    // If another card is added, the old one should be replaced.
+    val W_card_other = new WeatherCard("W2", "BF")
+    USR.getHand().put(W_card_other)
+    USR.play(W_card_other)
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card), 0)
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().occurrences(W_card_other), 1)
+
+    // And there should still only be one card.
+    assertEquals(USR.getSide().getBoard().getWeatherZone().getCurrentCards().getAmount(), 1)
   }
 
 }

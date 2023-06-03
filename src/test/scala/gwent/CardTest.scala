@@ -47,12 +47,12 @@ class CardTest extends FunSuite {
 
   test("Cards can be taken from non-empty set that contain them.") {
     assertEquals(Build_set.getAmount(), expected = 25)
-    assertEquals(Build_set.occurrences(U_plain_card), expected = 4)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
 
     Build_set.take(U_plain_card)
 
     assertEquals(Build_set.getAmount(), expected = 24)
-    assertEquals(Build_set.occurrences(U_plain_card), expected = 3)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 1)
   }
 
   test("Card cannot be taken from empty set.") {
@@ -65,7 +65,7 @@ class CardTest extends FunSuite {
 
   test("Card cannot be taken from set that doesn't contain it.") {
     assertEquals(Build_set.getAmount(), expected = 25)
-    assertEquals(Build_set.occurrences(U_plain_card), expected = 4)
+    assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
 
     intercept[CardNotInSetException] {
       Build_set.take(U_plain_card)
@@ -75,7 +75,7 @@ class CardTest extends FunSuite {
       Build_set.take(U_plain_card)
     }
 
-    assertEquals(Build_set.getAmount(), expected = 21)
+    assertEquals(Build_set.getAmount(), expected = 23)
     assertEquals(Build_set.occurrences(U_plain_card), expected = 0)
   }
 

@@ -3,6 +3,7 @@ package gwent
 
 import cl.uchile.dcc.gwent.board.general.{Board, Side}
 import cl.uchile.dcc.gwent.card.general.Card
+import cl.uchile.dcc.gwent.card.set.CardSet
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import cl.uchile.dcc.gwent.exceptions.NoMoreGemsToRemoveException
 import munit.FunSuite
@@ -24,7 +25,23 @@ class PlayerTest extends FunSuite {
   }
 
   test("Player must have a hand and a deck.") {
-    assert(false)
+    // To avoid mistakes in testing, card sets are shuffled beforehand.
+    USR.getDeck().shuffle()
+    USR.getHand().shuffle()
+    CPU.getDeck().shuffle()
+    CPU.getHand().shuffle()
+
+    assertEquals(USR.getDeck().getAmount(), 15)
+    assertEquals(USR.getHand().getAmount(), 10)
+    assertEquals(CPU.getDeck().getAmount(), 15)
+    assertEquals(CPU.getHand().getAmount(), 10)
+
+    // Every card in hand and deck must be a subset of the original possible cards.
+    val base_set = new CardSet(build = true)
+    for (c <- USR.getDeck().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- USR.getHand().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- CPU.getDeck().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- CPU.getDeck().getList()) assert(base_set.occurrences(c) > 0)
   }
 
   test("Player must have an initially null side which can be set to another side.") {
@@ -60,46 +77,74 @@ class PlayerTest extends FunSuite {
     USR.setSide(s1)
     CPU.setSide(s2)
 
+    // To avoid mistakes in testing, card sets are shuffled beforehand.
+    USR.getDeck().shuffle()
+    USR.getHand().shuffle()
+    CPU.getDeck().shuffle()
+    CPU.getHand().shuffle()
+
     assertEquals(USR.getDeck().getAmount(), 15)
     assertEquals(USR.getHand().getAmount(), 10)
     assertEquals(CPU.getDeck().getAmount(), 15)
     assertEquals(CPU.getHand().getAmount(), 10)
 
+    // Every card in hand and deck must be a subset of the original possible cards.
+    val base_set = new CardSet(build = true)
+    for (c <- USR.getDeck().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- USR.getHand().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- CPU.getDeck().getList()) assert(base_set.occurrences(c) > 0)
+    for (c <- CPU.getDeck().getList()) assert(base_set.occurrences(c) > 0)
+
     // Test strategy that first card in hand is played, by User.
     val x1: Card = USR.getHand().getList()(0)
-    val x1_occurrences: Int = USR.getHand().occurrences(x1)
+    val x1_occurrences_hand: Int = USR.getHand().occurrences(x1)
+    val x1_occurrences_deck: Int = USR.getDeck().occurrences(x1)
 
     USR.play(x1)
     assertEquals(USR.getDeck().getAmount(), 15)
     assertEquals(USR.getHand().getAmount(), 9)
-    assertEquals(USR.getHand().occurrences(x1), x1_occurrences-1)
+    assertEquals(USR.getHand().occurrences(x1), x1_occurrences_hand-1)
+    assertEquals(USR.getDeck().occurrences(x1), x1_occurrences_deck)
 
     // Test that first card in deck is drawn, by User.
     val x2: Card = USR.getDeck().getList()(0)
-    val x2_occurrences: Int = USR.getHand().occurrences(x2)
+    val x2_occurrences_hand: Int = USR.getHand().occurrences(x2)
+    val x2_occurrences_deck: Int = USR.getDeck().occurrences(x2)
 
-    USR.draw()
+    if (USR.draw() == x2) {
+      assertEquals(USR.getHand().occurrences(x2), x2_occurrences_hand+1)
+    } else {
+      assertEquals(USR.getHand().occurrences(x2), x2_occurrences_hand)
+    }
     assertEquals(USR.getDeck().getAmount(), 14)
     assertEquals(USR.getHand().getAmount(), 10)
-    assertEquals(USR.getDeck().occurrences(x2), x2_occurrences-1)
+    assertEquals(USR.getDeck().occurrences(x2), x2_occurrences_deck-1)
 
     // Test strategy that first card in hand is played, by Computer.
     val y1: Card = CPU.getHand().getList()(0)
-    val y1_occurrences: Int = CPU.getHand().occurrences(y1)
+    val y1_occurrences_hand: Int = CPU.getHand().occurrences(y1)
+    val y1_occurrences_deck: Int = CPU.getDeck().occurrences(y1)
 
     CPU.play(y1)
     assertEquals(CPU.getDeck().getAmount(), 15)
     assertEquals(CPU.getHand().getAmount(), 9)
-    assertEquals(CPU.getHand().occurrences(y1), y1_occurrences-1)
+    assertEquals(CPU.getHand().occurrences(y1), y1_occurrences_hand-1)
+    assertEquals(CPU.getDeck().occurrences(y1), y1_occurrences_deck)
 
     // Test that first card in deck is drawn, by User.
     val y2: Card = CPU.getDeck().getList()(0)
-    val y2_occurrences: Int = CPU.getHand().occurrences(y2)
+    val y2_occurrences_hand: Int = CPU.getHand().occurrences(y2)
+    val y2_occurrences_deck: Int = CPU.getDeck().occurrences(y2)
 
-    CPU.draw()
+    if (CPU.draw() == y2) {
+      assertEquals(CPU.getHand().occurrences(y2), y2_occurrences_hand + 1)
+    } else {
+      assertEquals(CPU.getHand().occurrences(y2), y2_occurrences_hand)
+    }
+
     assertEquals(CPU.getDeck().getAmount(), 14)
     assertEquals(CPU.getHand().getAmount(), 10)
-    assertEquals(CPU.getDeck().occurrences(y2), y2_occurrences - 1)
+    assertEquals(CPU.getDeck().occurrences(y2), y2_occurrences_deck - 1)
   }
 
   test("Two players of the same type with the same name are equal.") {

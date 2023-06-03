@@ -13,7 +13,7 @@ import cl.uchile.dcc.gwent.card.general.Card
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.1
+ * @version 0.1.2
  */
 trait Player {
   /** Carries out the player's strategy or way of choosing a card to play. 
@@ -25,5 +25,5 @@ trait Player {
   def play(x: Card): Unit
   
   /** Draws a card from the deck, adding it to its hand. */
-  def draw(): Unit
+  def draw(): Card
 }

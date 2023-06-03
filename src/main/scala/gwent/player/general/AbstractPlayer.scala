@@ -5,7 +5,7 @@ import gwent.card.set.CardSet
 
 import cl.uchile.dcc.gwent.board.general.Side
 import cl.uchile.dcc.gwent.card.general.Card
-import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, SetNegativeGemsException, TakeFromEmptySetException}
+import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
@@ -18,7 +18,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 abstract class AbstractPlayer(private val name: String) extends Player with Equals {
 
@@ -50,8 +50,7 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
 
   /** Sets the current amount of gems to the given value. */
   private def setGems(x: Int): Unit = {
-    if (x<0) throw new SetNegativeGemsException
-    gems = x
+    if (x>0) gems = x
   }
 
   /** Returns the CardSet of drawable cards. */
@@ -69,9 +68,10 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
   }
 
   /** Removes the first card from deck and puts it in hand. */
-  def draw(): Unit = {
+  def draw(): Card = {
     val taken = deck.take()
     hand.put(taken)
+    taken
   }
 
   /** Returns the side of the player. */
