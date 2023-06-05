@@ -1,6 +1,9 @@
 package cl.uchile.dcc
 package gwent
 
+
+
+import cl.uchile.dcc.gwent.states.general.GameController
 import munit.FunSuite
 
 /** Tests methods related to states and their transitions. */
@@ -182,7 +185,7 @@ class StateTest extends FunSuite {
   }
 
   test("Transitions for are valid for another round if User won last round.") {
-    controller_round_ended.one_still_alive(true)
+    controller_round_ended.one_still_alive()
 
     assert(!controller_round_ended.isStartGame())
     assert(!controller_round_ended.isEndGame())
@@ -208,7 +211,7 @@ class StateTest extends FunSuite {
   }
 
   test("Transitions for are valid for another round if Computer won last round.") {
-    controller_round_ended.one_still_alive(false)
+    controller_round_ended.one_still_alive()
 
     assert(!controller_round_ended.isStartGame())
     assert(!controller_round_ended.isEndGame())
