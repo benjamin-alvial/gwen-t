@@ -13,4 +13,7 @@ This project's goal is to create a (simplified) clone of the
 
 ---
 
-**The rest of the documentation is left for the users of this template to complete**
+# Entrega parcial 4
+
+## Diagrama de estados.
+![Diagrama de estados](docs/diagrama-estados.png)
