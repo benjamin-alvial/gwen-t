@@ -184,7 +184,45 @@ class StateTest extends FunSuite {
 
   }
 
-  test("Transitions for are valid for another round if User won last round.") {
+  test("Transitions are valid if players play cards alternately.") {
+    controller_user_starts.play_one_user()
+    assert(!controller_user_starts.isStartGame())
+    assert(!controller_user_starts.isEndGame())
+    assert(!controller_user_starts.isStartRound())
+    assert(!controller_user_starts.isEndRound())
+    assert(!controller_user_starts.isNextRound())
+    assert(!controller_user_starts.isUserPlaysOne())
+    assert(controller_user_starts.isComputerPlaysOne())
+    assert(!controller_user_starts.isUserPlaysUnlimited())
+    assert(!controller_user_starts.isComputerPlaysUnlimited())
+
+    controller_user_starts.play_one_computer()
+    assert(!controller_user_starts.isStartGame())
+    assert(!controller_user_starts.isEndGame())
+    assert(!controller_user_starts.isStartRound())
+    assert(!controller_user_starts.isEndRound())
+    assert(!controller_user_starts.isNextRound())
+    assert(controller_user_starts.isUserPlaysOne())
+    assert(!controller_user_starts.isComputerPlaysOne())
+    assert(!controller_user_starts.isUserPlaysUnlimited())
+    assert(!controller_user_starts.isComputerPlaysUnlimited())
+
+    controller_user_starts.play_one_user()
+    assert(!controller_user_starts.isStartGame())
+    assert(!controller_user_starts.isEndGame())
+    assert(!controller_user_starts.isStartRound())
+    assert(!controller_user_starts.isEndRound())
+    assert(!controller_user_starts.isNextRound())
+    assert(!controller_user_starts.isUserPlaysOne())
+    assert(controller_user_starts.isComputerPlaysOne())
+    assert(!controller_user_starts.isUserPlaysUnlimited())
+    assert(!controller_user_starts.isComputerPlaysUnlimited())
+
+
+
+  }
+
+  test("Transitions are valid for another round if User won last round.") {
     controller_round_ended.one_still_alive()
 
     assert(!controller_round_ended.isStartGame())
@@ -210,7 +248,7 @@ class StateTest extends FunSuite {
     assert(!controller_round_ended.isComputerPlaysUnlimited())
   }
 
-  test("Transitions for are valid for another round if Computer won last round.") {
+  test("Transitions are valid for another round if Computer won last round.") {
     controller_round_ended.one_still_alive()
 
     assert(!controller_round_ended.isStartGame())
