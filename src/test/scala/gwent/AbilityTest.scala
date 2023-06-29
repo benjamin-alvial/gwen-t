@@ -59,6 +59,29 @@ class AbilityTest extends FunSuite {
 
   }
 
+  test("Testing TightBond for EP5.") {
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().take()
+    USR.getHand().put(U_close_card_C1_MB)
+    USR.getHand().put(U_close_card_C2_TB)
+    USR.getHand().put(U_close_card_C2_NA)
+    USR.getHand().put(U_close_card_C3_NA)
+
+    USR.play(U_close_card_C2_NA) // Do nothing.
+    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
+    USR.play(U_close_card_C3_NA) // Do nothing.
+    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
+    USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
+    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength * 2)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength * 2)
+
+  }
+
   test("Three possible effects of close combat cards can be played, null abilities first.") {
     USR.getHand().take()
     USR.getHand().take()
