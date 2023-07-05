@@ -18,7 +18,7 @@ import gwent.board.general.Side
  * @since 0.1.0
  * @version 0.1.3
  */
-class RangedUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractUnitCard(name, strength, ability) with Equals {
+class RangedUnitCard(private val name: String, private val strength: Int, private val ability: Ability) extends AbstractUnitCard(name, strength, ability) with Equals {
   /** Sends a message to the given side to receive the card of type ranged. 
    * @param s The side to which the card will be played. */
   def play(s: Side): Unit = s.receiveRanged(this)

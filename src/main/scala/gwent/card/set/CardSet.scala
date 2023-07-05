@@ -37,34 +37,34 @@ class CardSet(build: Boolean) extends Equals {
   if (build) {
     list = ListBuffer(
       // Future: implement abilities.
-      new CloseUnitCard("C1", 100, "NULL"),
-      new CloseUnitCard("C1", 100, "NULL"),
-      new CloseUnitCard("C2", 100, "NULL"),
-      new CloseUnitCard("C2", 100, "NULL"),
-      new CloseUnitCard("C1", 100, "MB"), // Morale Boost.
-      new CloseUnitCard("C1", 100, "TB"), // Tight Bond.
+      new CloseUnitCard("C1", 100, NullAbility),
+      new CloseUnitCard("C1", 100, NullAbility),
+      new CloseUnitCard("C2", 100, NullAbility),
+      new CloseUnitCard("C2", 100, NullAbility),
+      new CloseUnitCard("C1", 100, MoralBoost), // Morale Boost.
+      new CloseUnitCard("C1", 100, TightBond), // Tight Bond.
 
-      new RangedUnitCard("R1", 100, "NULL"),
-      new RangedUnitCard("R1", 100, "NULL"),
-      new RangedUnitCard("R2", 100, "NULL"),
-      new RangedUnitCard("R2", 100, "NULL"),
-      new RangedUnitCard("R1", 100, "MB"), // Morale Boost.
-      new RangedUnitCard("R1", 100, "TB"), // Tight Bond.
+      new RangedUnitCard("R1", 100, NullAbility),
+      new RangedUnitCard("R1", 100, NullAbility),
+      new RangedUnitCard("R2", 100, NullAbility),
+      new RangedUnitCard("R2", 100, NullAbility),
+      new RangedUnitCard("R1", 100, MoralBoost), // Morale Boost.
+      new RangedUnitCard("R1", 100, TightBond), // Tight Bond.
 
-      new SiegeUnitCard("S1", 100, "NULL"),
-      new SiegeUnitCard("S1", 100, "NULL"),
-      new SiegeUnitCard("S2", 100, "NULL"),
-      new SiegeUnitCard("S2", 100, "NULL"),
-      new SiegeUnitCard("S1", 100, "MB"), // Morale Boost.
-      new SiegeUnitCard("S1", 100, "TB"), // Tight Bond.
+      new SiegeUnitCard("S1", 100, NullAbility),
+      new SiegeUnitCard("S1", 100, NullAbility),
+      new SiegeUnitCard("S2", 100, NullAbility),
+      new SiegeUnitCard("S2", 100, NullAbility),
+      new SiegeUnitCard("S1", 100, MoralBoost), // Morale Boost.
+      new SiegeUnitCard("S1", 100, TightBond), // Tight Bond.
 
-      new WeatherCard("W1", "BF"), // Biting Frost.
-      new WeatherCard("W1", "BF"), // Biting Frost.
-      new WeatherCard("W2", "IF"), // Impenetrable Fog.
-      new WeatherCard("W2", "IF"), // Impenetrable Fog.
-      new WeatherCard("W3", "TR"), // Torrential Rain.
-      new WeatherCard("W3", "TR"), // Torrential Rain.
-      new WeatherCard("W4", "CW") // Clear Weather.
+      new WeatherCard("W1", BitingFrost), // Biting Frost.
+      new WeatherCard("W1", BitingFrost), // Biting Frost.
+      new WeatherCard("W2", ImpenetrableFog), // Impenetrable Fog.
+      new WeatherCard("W2", ImpenetrableFog), // Impenetrable Fog.
+      new WeatherCard("W3", TorrentialRain), // Torrential Rain.
+      new WeatherCard("W3", TorrentialRain), // Torrential Rain.
+      new WeatherCard("W4", ClearWeather) // Clear Weather.
       )
   }
 
