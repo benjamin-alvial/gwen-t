@@ -4,8 +4,6 @@ package gwent.card.general
 import gwent.card.unit.AbstractUnitCard
 import gwent.card.weather.WeatherCard
 
-import cl.uchile.dcc.gwent.ability.general.Ability
-
 /** Represents a card.
  *
  * The card can be an [[AbstractUnitCard]] or [[WeatherCard]].
@@ -18,10 +16,10 @@ import cl.uchile.dcc.gwent.ability.general.Ability
  * @since 0.1.0
  * @version 0.1.1
  */
-abstract class AbstractCard(private val name: String, private val ability: Ability) extends Card {
+abstract class AbstractCard(private val name: String, private val ability: String) extends Card {
   /** Returns the name of the card. */
   def getName(): String = name
 
   /** Returns the ability of the card. */
-  def getAbility(): Ability = ability
+  def getAbility(): String = ability
 }

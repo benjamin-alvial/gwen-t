@@ -1,9 +1,7 @@
 package cl.uchile.dcc
 package gwent.card.unit
 
-import cl.uchile.dcc.gwent.ability.general.Ability
-import cl.uchile.dcc.gwent.ability.unit.concrete.TightBond
-import cl.uchile.dcc.gwent.card.general.{AbstractCard, UnitCard}
+import cl.uchile.dcc.gwent.card.general.AbstractCard
 
 /** Represents the unit cards.
  *
@@ -18,19 +16,10 @@ import cl.uchile.dcc.gwent.card.general.{AbstractCard, UnitCard}
  * @since 0.1.0
  * @version 0.1.4
  */
-abstract class AbstractUnitCard(private val name: String, private val strength: Int, private val ability: Ability) extends AbstractCard(name, ability) {
+abstract class AbstractUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractCard(name, ability) {
 
   /** Returns the strength of the unit card. */
   def getStrength(): Int = strength
-
-  var currentStrength: Int = strength
-
-  def update(c: UnitCard) = {
-    // Horrible design. To be changed in the future.
-    if (c.getAbility().isInstanceOf[TightBond] && this.getName() == c.getName()) {
-      currentStrength = currentStrength * 2
-    }
-  }
   
 
   
