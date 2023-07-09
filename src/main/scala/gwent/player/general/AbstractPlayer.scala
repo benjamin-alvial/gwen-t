@@ -6,6 +6,7 @@ import gwent.card.set.CardSet
 import cl.uchile.dcc.gwent.board.general.Side
 import cl.uchile.dcc.gwent.card.general.Card
 import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
+import cl.uchile.dcc.gwent.observer.AbstractSubject
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
@@ -20,7 +21,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  * @since 0.1.0
  * @version 0.1.7
  */
-abstract class AbstractPlayer(private val name: String) extends Player with Equals {
+abstract class AbstractPlayer(private val name: String) extends AbstractSubject with Player with Equals {
 
   /** The current amount of gems, initially set as 2. */
   private var gems: Int = 2
@@ -63,7 +64,10 @@ abstract class AbstractPlayer(private val name: String) extends Player with Equa
   def loseGem(): Unit = {
 
     if (getGems() == 0) throw new NoMoreGemsToRemoveException
-    else setGems(getGems() - 1)
+    else {
+      setGems(getGems() - 1)
+      notifyObservers()
+    }
 
   }
 

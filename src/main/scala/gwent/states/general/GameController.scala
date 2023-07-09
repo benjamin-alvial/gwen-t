@@ -2,9 +2,44 @@ package cl.uchile.dcc
 package gwent.states.general
 
 import gwent.states.general.State
+
+import cl.uchile.dcc.gwent.board.general.Board
+import cl.uchile.dcc.gwent.observer.Observer
+import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import cl.uchile.dcc.gwent.states.concrete.StartGame
 
-class GameController {
+class GameController extends Observer {
+  private var board: Board = null
+  private var user: UserPlayer = null
+  private var cpu: ComputerPlayer = null
+
+  def setBoard(b: Board): Unit = {
+    board = b
+  }
+
+  def setUserPlayer(p: UserPlayer): Unit = {
+    user = p
+  }
+
+  def setComputerPlayer(p: ComputerPlayer): Unit = {
+    cpu = p
+  }
+
+  def update() = {
+    // User loses and CPU wins
+    if ((user.getGems() == 0) && (cpu.getGems() > 0)) {
+      one_dies()
+    }
+    // CPU loses and User wins
+    if ((cpu.getGems() == 0) && (user.getGems() > 0)) {
+      one_dies()
+    }
+
+    // Both CPU and User lose
+    if ((user.getGems() == 0) && (cpu.getGems() == 0)) {
+      one_dies()
+    }
+  }
 
   private var state: State = new StartGame()
   state.setGameController(this)

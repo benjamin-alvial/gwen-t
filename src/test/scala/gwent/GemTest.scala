@@ -20,6 +20,10 @@ class GemTest extends FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     controller = new GameController()
+    controller.input_name()
+    controller.coin_user()
+    controller.user_pass()
+    controller.end_round()
 
     b = new Board()
     s1 = new Side(b)
@@ -31,7 +35,12 @@ class GemTest extends FunSuite {
     USR.setSide(s1)
     CPU.setSide(s2)
 
+    USR.registerObserver(controller)
+    CPU.registerObserver(controller)
+
     controller.setBoard(b)
+    controller.setUserPlayer(USR)
+    controller.setComputerPlayer(CPU)
   }
 
   test("If User runs out of gems, the controller must change to EndGame state.") {
