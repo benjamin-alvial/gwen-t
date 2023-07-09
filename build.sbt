@@ -6,5 +6,6 @@ lazy val root = (project in file("."))
   .settings(
     name := "gwent",
     idePackagePrefix := Some("cl.uchile.dcc"),
-    libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
   )
+
+libraryDependencies += "org.scalameta" %% "munit" % "0.7.29" % Test
