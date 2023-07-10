@@ -1,10 +1,10 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.card.set.CardSet
-import cl.uchile.dcc.gwent.card.unit.{AbstractUnitCard, CloseUnitCard}
-import cl.uchile.dcc.gwent.card.weather.WeatherCard
-import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
+import gwent.card.set.CardSet
+import gwent.card.unit.{AbstractUnitCard, CloseUnitCard}
+import gwent.card.weather.WeatherCard
+import gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 import munit.FunSuite
 
 /** Tests methods related to Cards and CardSets. */
@@ -27,44 +27,44 @@ class CardTest extends FunSuite {
   }
 
   test("Card must have a name.") {
-    assertEquals(U_plain_card.getName(), expected = "C1")
-    assertEquals(U_effect_card.getName(), expected = "C2")
-    assertEquals(W_card.getName(), expected = "W1")
+    assertEquals(U_plain_card.getName, expected = "C1")
+    assertEquals(U_effect_card.getName, expected = "C2")
+    assertEquals(W_card.getName, expected = "W1")
   }
 
   test("Card must have base strength.") {
-    assertEquals(U_plain_card.getStrength(), expected = 100)
+    assertEquals(U_plain_card.getStrength, expected = 100)
   }
 
   test("Weather cards must have an effect.") {
-    assertEquals(W_card.getAbility(), expected = "BF")
+    assertEquals(W_card.getAbility, expected = "BF")
   }
 
   test("Card sets must have the desired amount of cards.") {
-    assertEquals(Empty_set.getAmount(), expected = 0)
-    assertEquals(Build_set.getAmount(), expected = 25)
+    assertEquals(Empty_set.getAmount, expected = 0)
+    assertEquals(Build_set.getAmount, expected = 25)
   }
 
   test("Cards can be taken from non-empty set that contain them.") {
-    assertEquals(Build_set.getAmount(), expected = 25)
+    assertEquals(Build_set.getAmount, expected = 25)
     assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
 
     Build_set.take(U_plain_card)
 
-    assertEquals(Build_set.getAmount(), expected = 24)
+    assertEquals(Build_set.getAmount, expected = 24)
     assertEquals(Build_set.occurrences(U_plain_card), expected = 1)
   }
 
   test("Card cannot be taken from empty set.") {
-    assertEquals(Empty_set.getAmount(), 0)
+    assertEquals(Empty_set.getAmount, 0)
     intercept[TakeFromEmptySetException] {
       Empty_set.take(U_plain_card)
     }
-    assertEquals(Empty_set.getAmount(), 0)
+    assertEquals(Empty_set.getAmount, 0)
   }
 
   test("Card cannot be taken from set that doesn't contain it.") {
-    assertEquals(Build_set.getAmount(), expected = 25)
+    assertEquals(Build_set.getAmount, expected = 25)
     assertEquals(Build_set.occurrences(U_plain_card), expected = 2)
 
     intercept[CardNotInSetException] {
@@ -75,24 +75,24 @@ class CardTest extends FunSuite {
       Build_set.take(U_plain_card)
     }
 
-    assertEquals(Build_set.getAmount(), expected = 23)
+    assertEquals(Build_set.getAmount, expected = 23)
     assertEquals(Build_set.occurrences(U_plain_card), expected = 0)
   }
 
   test("Cards can be put into a set.")  {
-    assertEquals(Empty_set.getAmount(), expected = 0)
+    assertEquals(Empty_set.getAmount, expected = 0)
     assertEquals(Empty_set.occurrences(U_plain_card), expected = 0)
 
     Empty_set.put(U_plain_card)
 
-    assertEquals(Empty_set.getAmount(), expected = 1)
+    assertEquals(Empty_set.getAmount, expected = 1)
     assertEquals(Empty_set.occurrences(U_plain_card), expected = 1)
     // Future: exception for maximum amount on hand.
   }
 
   test("Subsets must have the desired amount of cards.") {
     val Subset_set: CardSet = Build_set.choose(10)
-    assertEquals(Subset_set.getAmount(), expected = 10)
+    assertEquals(Subset_set.getAmount, expected = 10)
   }
 
   test("Cards can be equal if they share name and abilities.") {

@@ -3,7 +3,7 @@ package gwent.board.general
 
 import gwent.card.weather.WeatherCard
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
-import cl.uchile.dcc.gwent.board.weather.WeatherZone
+import gwent.board.weather.WeatherZone
 
 /** Represents the physical board on which the game is played.
  *
@@ -18,7 +18,7 @@ import cl.uchile.dcc.gwent.board.weather.WeatherZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 class Board extends Equals {
   /** Section for the user player. */
@@ -27,19 +27,20 @@ class Board extends Equals {
   private val computer_side: Side = new Side(this)
   /** Section for the weather cards. */
   private val weather_zone: WeatherZone = new WeatherZone()
-  
-  /** Receives a weather card and calls on the corresponding weather to play it. 
-   * @param c The card to be played on weather zone. */
-  def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
 
   /** Returns the side of the board that belongs to the User player. */
-  def getUserSide(): Side = user_side
+  def getUserSide: Side = user_side
 
   /** Returns the side of the board that belongs to the Computer player. */
-  def getComputerSide(): Side = computer_side
+  def getComputerSide: Side = computer_side
 
   /** Returns the weather zone of the board. */
-  def getWeatherZone(): WeatherZone = weather_zone
+  def getWeatherZone: WeatherZone = weather_zone
+
+  /** Receives a weather card and calls on the corresponding weather to play it. 
+   *
+   * @param c The card to be played on weather zone. */
+  def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
 
   /** Returns true if the other instance is of class Board. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Board]
@@ -48,7 +49,7 @@ class Board extends Equals {
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[Board]
-      (this eq other) || (this.getUserSide() == other.getUserSide() && this.getComputerSide() == other.getComputerSide() && this.getWeatherZone() == other.getWeatherZone())
+      (this eq other) || (this.getUserSide == other.getUserSide && this.getComputerSide == other.getComputerSide && this.getWeatherZone == other.getWeatherZone)
     } else {
       false
     }

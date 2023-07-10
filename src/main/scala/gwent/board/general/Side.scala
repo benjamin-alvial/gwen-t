@@ -18,7 +18,7 @@ import gwent.player.concrete.{ComputerPlayer, UserPlayer}
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class Side(b: Board) extends Equals {
   /** Zone for the close combat cards. */
@@ -29,6 +29,18 @@ class Side(b: Board) extends Equals {
   private val siege_zone: SiegeRow = new SiegeRow()
   /** Board where the side belongs to. */
   private val board: Board = b
+
+  /** Returns the close combat zone of the side. */
+  def getCloseZone: CloseRow = close_zone
+
+  /** Returns the ranged zone of the side. */
+  def getRangedZone: RangedRow = ranged_zone
+
+  /** Returns the siege zone of the side. */
+  def getSiegeZone: SiegeRow = siege_zone
+
+  /** Returns the board to where the side belongs. */
+  def getBoard: Board = board
 
   /** Receives a close combat card and calls on the corresponding zone to play it. 
    * @param c The card to be played on the close combat zone. */
@@ -42,18 +54,6 @@ class Side(b: Board) extends Equals {
    * @param c The card to be played on the siege zone. */
   def receiveSiege(c: SiegeUnitCard): Unit = siege_zone.play(c)
 
-  /** Returns the close combat zone of the side. */
-  def getCloseZone(): CloseRow = close_zone
-
-  /** Returns the ranged zone of the side. */
-  def getRangedZone(): RangedRow = ranged_zone
-
-  /** Returns the siege zone of the side. */
-  def getSiegeZone(): SiegeRow = siege_zone
-
-  /** Returns the board to where the side belongs. */
-  def getBoard(): Board = board
-
   /** Returns true if the other instance is of class Side. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Side]
 
@@ -61,7 +61,7 @@ class Side(b: Board) extends Equals {
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[Side]
-      (this eq other) || (this.getCloseZone() == other.getCloseZone() && this.getRangedZone() == other.getRangedZone() && this.getSiegeZone() == other.getSiegeZone() && this.getBoard() == other.getBoard())
+      (this eq other) || (this.getCloseZone == other.getCloseZone && this.getRangedZone == other.getRangedZone && this.getSiegeZone == other.getSiegeZone && this.getBoard == other.getBoard)
     } else {
       false
     }

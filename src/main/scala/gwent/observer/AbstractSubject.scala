@@ -4,7 +4,7 @@ package gwent.observer
 import scala.collection.mutable.ListBuffer
 
 class AbstractSubject extends Subject {
-  val observerCollection: ListBuffer[Observer] = ListBuffer()
+  private val observerCollection: ListBuffer[Observer] = ListBuffer()
   def registerObserver(observer: Observer): Unit = {
     observerCollection.addOne(observer)
   }

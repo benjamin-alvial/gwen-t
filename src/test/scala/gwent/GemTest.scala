@@ -2,10 +2,10 @@ package cl.uchile.dcc
 package gwent
 
 import gwent.states.general.GameController
+import gwent.board.general.{Board, Side}
+import gwent.exceptions.NoMoreGemsToRemoveException
+import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
-import cl.uchile.dcc.gwent.board.general.{Board, Side}
-import cl.uchile.dcc.gwent.exceptions.NoMoreGemsToRemoveException
-import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import munit.FunSuite
 
 /** Tests methods related to notifying when gems run out. */
@@ -44,45 +44,45 @@ class GemTest extends FunSuite {
   }
 
   test("If User runs out of gems, the controller must change to EndGame state.") {
-    assertEquals(USR.getGems(), 2)
-    assert(!controller.isEndGame())
+    assertEquals(USR.getGems, 2)
+    assert(!controller.isEndGame)
     USR.loseGem()
-    assertEquals(USR.getGems(), 1)
-    assert(!controller.isEndGame())
+    assertEquals(USR.getGems, 1)
+    assert(!controller.isEndGame)
     USR.loseGem()
-    assertEquals(USR.getGems(), 0)
-    assert(controller.isEndGame())
+    assertEquals(USR.getGems, 0)
+    assert(controller.isEndGame)
   }
 
   test("If Computer runs out of gems, the controller must change to EndGame state.") {
-    assertEquals(CPU.getGems(), 2)
-    assert(!controller.isEndGame())
+    assertEquals(CPU.getGems, 2)
+    assert(!controller.isEndGame)
     CPU.loseGem()
-    assertEquals(CPU.getGems(), 1)
-    assert(!controller.isEndGame())
+    assertEquals(CPU.getGems, 1)
+    assert(!controller.isEndGame)
     CPU.loseGem()
-    assertEquals(CPU.getGems(), 0)
-    assert(controller.isEndGame())
+    assertEquals(CPU.getGems, 0)
+    assert(controller.isEndGame)
   }
 
   test("If User and Computer run out of gems, the controller must change to EndGame state.") {
-    assertEquals(USR.getGems(), 2)
-    assertEquals(CPU.getGems(), 2)
-    assert(!controller.isEndGame())
+    assertEquals(USR.getGems, 2)
+    assertEquals(CPU.getGems, 2)
+    assert(!controller.isEndGame)
 
     USR.loseGem()
     CPU.loseGem()
 
-    assertEquals(USR.getGems(), 1)
-    assertEquals(CPU.getGems(), 1)
-    assert(!controller.isEndGame())
+    assertEquals(USR.getGems, 1)
+    assertEquals(CPU.getGems, 1)
+    assert(!controller.isEndGame)
 
     USR.loseGem()
     CPU.loseGem()
 
-    assertEquals(USR.getGems(), 0)
-    assertEquals(CPU.getGems(), 0)
-    assert(controller.isEndGame())
+    assertEquals(USR.getGems, 0)
+    assertEquals(CPU.getGems, 0)
+    assert(controller.isEndGame)
   }
 
 }

@@ -14,13 +14,10 @@ import cl.uchile.dcc.gwent.card.general.AbstractCard
  * @constructor Creates a new unit card with the specified name, strength, and ability.
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 abstract class AbstractUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractCard(name, ability) {
-
   /** Returns the strength of the unit card. */
-  def getStrength(): Int = strength
-  
-
+  def getStrength: Int = strength
   
 }

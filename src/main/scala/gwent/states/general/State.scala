@@ -4,13 +4,16 @@ package gwent.states.general
 class State() {
 
   private var gc: Option[GameController] = None
-  def setGameController(gc: GameController) = {
+  
+  def setGameController(gc: GameController): Unit = {
     this.gc = Some(gc)
   }
+  
   protected def changeState(state: State) : Unit = {
     if(gc.isDefined)
       gc.get.setState(state)
   }
+  
   private def error() = throw new AssertionError("Wrong State")
 
   def input_name(): Unit = error()
@@ -26,13 +29,14 @@ class State() {
   def continue_computer(): Unit = error()
   def one_dies(): Unit = error()
 
-  def isStartGame(): Boolean = false
-  def isEndGame(): Boolean = false
-  def isStartRound(): Boolean = false
-  def isEndRound(): Boolean = false
-  def isNextRound(): Boolean = false
-  def isUserPlaysOne(): Boolean = false
-  def isComputerPlaysOne(): Boolean = false
-  def isUserPlaysUnlimited(): Boolean = false
-  def isComputerPlaysUnlimited(): Boolean = false
+  def isStartGame: Boolean = false
+  def isEndGame: Boolean = false
+  def isStartRound: Boolean = false
+  def isEndRound: Boolean = false
+  def isNextRound: Boolean = false
+  def isUserPlaysOne: Boolean = false
+  def isComputerPlaysOne: Boolean = false
+  def isUserPlaysUnlimited: Boolean = false
+  def isComputerPlaysUnlimited: Boolean = false
+  
 }

@@ -16,7 +16,7 @@ import gwent.board.general.Side
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class SiegeUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractUnitCard(name, strength, ability) with Equals {
   /** Sends a message to the given side to receive the card of type siege. 
@@ -30,7 +30,7 @@ class SiegeUnitCard(private val name: String, private val strength: Int, private
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[SiegeUnitCard]
-      (this eq other) || ((this.name == other.getName()) && (this.ability == other.getAbility()) && (this.strength == other.getStrength()))
+      (this eq other) || ((this.name == other.getName) && (this.ability == other.getAbility) && (this.strength == other.getStrength))
     } else {
       false
     }

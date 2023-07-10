@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 package gwent.board.weather
-import gwent.card.general.Card
 
-import cl.uchile.dcc.gwent.board.general.AbstractZone
+import gwent.card.general.Card
+import gwent.board.general.AbstractZone
 
 /** Represents the weather where only cards of type [[WeatherCard]] are played.
  *
@@ -13,15 +13,15 @@ import cl.uchile.dcc.gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class WeatherZone extends AbstractZone with Equals {
 
   /** Receives a weather card and places it on its zone, removing the old one. 
    * @param c The card to be played on the weather zone. */
   override def play(c: Card): Unit = {
-    if (getCurrentCards().getAmount() != 0) getCurrentCards().take()
-    getCurrentCards().put(c)
+    if (getCurrentCards.getAmount != 0) getCurrentCards.take()
+    getCurrentCards.put(c)
   }
 
   /** Returns true if the other instance is of class WeatherZone. */
@@ -31,7 +31,7 @@ class WeatherZone extends AbstractZone with Equals {
   override def equals(that: Any): Boolean = {
     if (canEqual(that)) {
       val other = that.asInstanceOf[WeatherZone]
-      (this eq other) || (this.getCurrentCards() == other.getCurrentCards())
+      (this eq other) || (this.getCurrentCards == other.getCurrentCards)
     } else {
       false
     }

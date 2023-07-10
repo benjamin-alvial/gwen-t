@@ -5,9 +5,8 @@ import gwent.card.unit.CloseUnitCard
 import gwent.card.unit.RangedUnitCard
 import gwent.card.unit.SiegeUnitCard
 import gwent.card.weather.WeatherCard
-
-import cl.uchile.dcc.gwent.card.general.Card
-import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
+import gwent.card.general.Card
+import gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 
 import scala.collection.mutable.ListBuffer
 import scala.util.Random
@@ -27,7 +26,7 @@ import scala.util.Random
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class CardSet(build: Boolean) extends Equals {
 
@@ -69,41 +68,10 @@ class CardSet(build: Boolean) extends Equals {
   }
 
   /** Returns the list of cards in the card set. */
-  def getList(): ListBuffer[Card] = list
-
-  /** Returns true if the other instance is of class CardSet. */
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[CardSet]
-
-  /** Returns true if the two instances of CardSet contain the same cards and same amount of each. */
-  override def equals(that: Any): Boolean = {
-    if (canEqual(that)) {
-      val other = that.asInstanceOf[CardSet]
-
-      var same_elements: Boolean = true
-
-      // Iterate over the cards of this list and check if they appear the same amount on the other list.
-      for (x <- this.list) {
-        if (this.occurrences(x) != other.occurrences(x)) {
-          same_elements = false
-        }
-      }
-
-      // Iterate over the cards of the other list and check if they appear the same amount on this list.
-      for (x <- other.list) {
-        if (this.occurrences(x) != other.occurrences(x)) {
-          same_elements = false
-        }
-      }
-
-      (this eq other) || same_elements
-
-    } else {
-      false
-    }
-  }
+  def getList: ListBuffer[Card] = list
 
   /** Returns amount of cards in the card list. */
-  def getAmount(): Int = list.size
+  def getAmount: Int = list.size
 
   /** Removes and returns the first card from the list. */
   def take(): Card = {
@@ -113,17 +81,17 @@ class CardSet(build: Boolean) extends Equals {
   }
 
   /** Removes the specified card from the list. 
-   * @param c The card to be removed from the card set. */
+   * @param x The card to be removed from the card set. */
   def take(x: Card): Unit = {
     if (list.isEmpty) throw new TakeFromEmptySetException
 
     val election = new CardSet(build = false)
     var found = false // State variable to mark that we already took the 1 instance we wanted.
 
-    for (i <- 1 to getAmount()) {
+    for (i <- 1 to getAmount) {
       val taken = take() // Take the first card.
 
-      if (found == true) {
+      if (found) {
         election.put(taken) // If it has already been found, keep the other cards.
       } else {
         if (taken != x) {
@@ -134,7 +102,7 @@ class CardSet(build: Boolean) extends Equals {
     }
 
     list = election.list
-    if (found == false) throw new CardNotInSetException
+    if (!found) throw new CardNotInSetException
 
   }
 
@@ -182,4 +150,34 @@ class CardSet(build: Boolean) extends Equals {
     i
   }
 
+  /** Returns true if the other instance is of class CardSet. */
+  override def canEqual(that: Any): Boolean = that.isInstanceOf[CardSet]
+
+  /** Returns true if the two instances of CardSet contain the same cards and same amount of each. */
+  override def equals(that: Any): Boolean = {
+    if (canEqual(that)) {
+      val other = that.asInstanceOf[CardSet]
+
+      var same_elements: Boolean = true
+
+      // Iterate over the cards of this list and check if they appear the same amount on the other list.
+      for (x <- this.list) {
+        if (this.occurrences(x) != other.occurrences(x)) {
+          same_elements = false
+        }
+      }
+
+      // Iterate over the cards of the other list and check if they appear the same amount on this list.
+      for (x <- other.list) {
+        if (this.occurrences(x) != other.occurrences(x)) {
+          same_elements = false
+        }
+      }
+
+      (this eq other) || same_elements
+
+    } else {
+      false
+    }
+  }
 }

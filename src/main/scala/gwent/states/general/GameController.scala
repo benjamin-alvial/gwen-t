@@ -3,14 +3,16 @@ package gwent.states.general
 
 import gwent.states.general.State
 
-import cl.uchile.dcc.gwent.board.general.Board
-import cl.uchile.dcc.gwent.observer.Observer
-import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
-import cl.uchile.dcc.gwent.states.concrete.StartGame
+import gwent.board.general.Board
+import gwent.observer.Observer
+import gwent.player.concrete.{ComputerPlayer, UserPlayer}
+import gwent.states.concrete.StartGame
 
 class GameController extends Observer {
   private var board: Board = null
+  
   private var user: UserPlayer = null
+  
   private var cpu: ComputerPlayer = null
 
   def setBoard(b: Board): Unit = {
@@ -25,18 +27,18 @@ class GameController extends Observer {
     cpu = p
   }
 
-  def update() = {
+  def update(): Unit = {
     // User loses and CPU wins
-    if ((user.getGems() == 0) && (cpu.getGems() > 0)) {
+    if ((user.getGems == 0) && (cpu.getGems > 0)) {
       one_dies()
     }
     // CPU loses and User wins
-    if ((cpu.getGems() == 0) && (user.getGems() > 0)) {
+    if ((cpu.getGems == 0) && (user.getGems > 0)) {
       one_dies()
     }
 
     // Both CPU and User lose
-    if ((user.getGems() == 0) && (cpu.getGems() == 0)) {
+    if ((user.getGems == 0) && (cpu.getGems == 0)) {
       one_dies()
     }
   }
@@ -61,14 +63,14 @@ class GameController extends Observer {
   def continue_computer(): Unit = state.continue_computer()
   def one_dies(): Unit = state.one_dies()
 
-  def isStartGame(): Boolean = state.isStartGame()
-  def isEndGame(): Boolean = state.isEndGame()
-  def isStartRound(): Boolean = state.isStartRound()
-  def isEndRound(): Boolean = state.isEndRound()
-  def isNextRound(): Boolean = state.isNextRound()
-  def isUserPlaysOne(): Boolean = state.isUserPlaysOne()
-  def isComputerPlaysOne(): Boolean = state.isComputerPlaysOne()
-  def isUserPlaysUnlimited(): Boolean = state.isUserPlaysUnlimited()
-  def isComputerPlaysUnlimited(): Boolean = state.isComputerPlaysUnlimited()
+  def isStartGame: Boolean = state.isStartGame
+  def isEndGame: Boolean = state.isEndGame
+  def isStartRound: Boolean = state.isStartRound
+  def isEndRound: Boolean = state.isEndRound
+  def isNextRound: Boolean = state.isNextRound
+  def isUserPlaysOne: Boolean = state.isUserPlaysOne
+  def isComputerPlaysOne: Boolean = state.isComputerPlaysOne
+  def isUserPlaysUnlimited: Boolean = state.isUserPlaysUnlimited
+  def isComputerPlaysUnlimited: Boolean = state.isComputerPlaysUnlimited
 
 }

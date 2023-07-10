@@ -3,11 +3,11 @@ package gwent.player.general
 
 import gwent.card.set.CardSet
 
-import cl.uchile.dcc.gwent.board.general.Side
-import cl.uchile.dcc.gwent.card.general.Card
-import cl.uchile.dcc.gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
-import cl.uchile.dcc.gwent.observer.AbstractSubject
-import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
+import gwent.board.general.Side
+import gwent.card.general.Card
+import gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
+import gwent.observer.AbstractSubject
+import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
 /** Represents a player of the game.
  *
@@ -19,7 +19,7 @@ import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
  *              
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.7
+ * @version 0.1.8
  */
 abstract class AbstractPlayer(private val name: String) extends AbstractSubject with Player with Equals {
 
@@ -39,15 +39,15 @@ abstract class AbstractPlayer(private val name: String) extends AbstractSubject 
   private var side: Side = null
 
   /** Returns the name of the player. */
-  def getName(): String = name
+  def getName: String = name
 
   /** Sets the side of the player. */
-  def setSide(s: Side) = {
+  def setSide(s: Side): Unit = {
     side = s
   }
 
   /** Returns the amount of gems left. */
-  def getGems(): Int = gems
+  def getGems: Int = gems
 
   /** Sets the current amount of gems to the given value. */
   private def setGems(x: Int): Unit = {
@@ -55,17 +55,17 @@ abstract class AbstractPlayer(private val name: String) extends AbstractSubject 
   }
 
   /** Returns the CardSet of drawable cards. */
-  def getDeck(): CardSet = deck
+  def getDeck: CardSet = deck
 
   /** Returns the CardSet of playable cards. */
-  def getHand(): CardSet = hand
+  def getHand: CardSet = hand
 
   /** Decreases the current amount of gems by one if there are still gems left. */
   def loseGem(): Unit = {
 
-    if (getGems() == 0) throw new NoMoreGemsToRemoveException
+    if (getGems == 0) throw new NoMoreGemsToRemoveException
     else {
-      setGems(getGems() - 1)
+      setGems(getGems - 1)
       notifyObservers()
     }
 
@@ -79,13 +79,13 @@ abstract class AbstractPlayer(private val name: String) extends AbstractSubject 
   }
 
   /** Returns the side of the player. */
-  def getSide(): Side = side
+  def getSide: Side = side
 
   /** Calls for a card to play itself on the given side. 
    * @param c The card that the player will play. */
   def play(c: Card): Unit = {
     try{
-      getHand().take(c)
+      getHand.take(c)
       c.play(side)
     }
     catch {

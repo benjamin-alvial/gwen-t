@@ -2,8 +2,7 @@ package cl.uchile.dcc
 package gwent.player.general
 
 import gwent.player.general.AbstractPlayer
-
-import cl.uchile.dcc.gwent.card.general.Card
+import gwent.card.general.Card
 
 /** 
  * Interface used for [[AbstractPlayer]], which can play and draw cards. 
@@ -13,7 +12,7 @@ import cl.uchile.dcc.gwent.card.general.Card
  * 
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 trait Player {
   /** Carries out the player's strategy or way of choosing a card to play. 
