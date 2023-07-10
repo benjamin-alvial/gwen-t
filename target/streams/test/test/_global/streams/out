@@ -1,0 +1,11 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(cl.uchile.dcc.gwent.PlayerTest, CustomFingerprint{suite='munit.Suite'}, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(cl.uchile.dcc.gwent.BoardTest, CustomFingerprint{suite='munit.Suite'}, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(cl.uchile.dcc.gwent.CardTest, CustomFingerprint{suite='munit.Suite'}, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(cl.uchile.dcc.gwent.StateTest, CustomFingerprint{suite='munit.Suite'}, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mSummary for munit not available.[0m
+[0m[[0m[0minfo[0m] [0m[0mPassed: Total 31, Failed 0, Errors 0, Passed 31[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	cl.uchile.dcc.gwent.PlayerTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	cl.uchile.dcc.gwent.StateTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	cl.uchile.dcc.gwent.BoardTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	cl.uchile.dcc.gwent.CardTest[0m
