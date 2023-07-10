@@ -1,12 +1,11 @@
 package cl.uchile.dcc
-package gwent.states.general
-
-import gwent.states.general.State
+package gwent.controller
 
 import gwent.board.general.Board
 import gwent.observer.Observer
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import gwent.states.concrete.StartGame
+import gwent.states.general.State
 
 class GameController extends Observer {
   private var board: Board = null

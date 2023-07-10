@@ -1,6 +1,8 @@
 package cl.uchile.dcc
 package gwent.states.general
 
+import gwent.controller.GameController
+
 class State() {
 
   private var gc: Option[GameController] = None

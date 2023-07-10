@@ -1,10 +1,10 @@
 package cl.uchile.dcc
 package gwent
 
-import gwent.states.general.GameController
 import gwent.board.general.{Board, Side}
 import gwent.exceptions.NoMoreGemsToRemoveException
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
+import cl.uchile.dcc.gwent.controller.GameController
 
 import munit.FunSuite
 
