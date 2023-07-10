@@ -13,7 +13,6 @@ This project's goal is to create a (simplified) clone of the
 
 ---
 
-# Entrega parcial 4
+# Entrega parcial 6
 
-## Diagrama de estados.
-![Diagrama de estados](docs/diagrama-estados.png)
+Se ha implementado el patrón de diseño Observer. El observador es el controlador y los sujetos observados son los dos jugadores, de modo que si un jugador pierde una gema, quedando con cero gemas, este notifica al controlador, que cambia de estado. Esta implementación es extensible, de modo que, si se busca notificar al controlador desde alguna otra clase, basta que esta extienda de la clase abstracta Subject, se suscriba al controlador y se utilice el método de notificar donde corresponda.
