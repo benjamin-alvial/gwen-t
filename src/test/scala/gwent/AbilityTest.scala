@@ -2,6 +2,7 @@ package cl.uchile.dcc
 package gwent
 
 import cl.uchile.dcc.gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
+import cl.uchile.dcc.gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
 import cl.uchile.dcc.gwent.board.general.{Board, Side}
 import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
@@ -58,6 +59,35 @@ class AbilityTest extends FunSuite {
     U_close_card_S3_NA = new SiegeUnitCard("S3", given_strength, new NullAbility())
 
     //W_card = new WeatherCard("W1", "BF")
+
+  }
+
+  test("Two abilities are equal if they are of the same class.") {
+    val mb1 = new MoralBoost()
+    val mb2 = new MoralBoost()
+    val na1 = new NullAbility()
+    val na2 = new NullAbility()
+    val tb1 = new TightBond()
+    val tb2 = new TightBond()
+    val bf1 = new BitingFrost()
+    val bf2 = new BitingFrost()
+    val cw1 = new ClearWeather()
+    val cw2 = new ClearWeather()
+    val if1 = new ImpenetrableFog()
+    val if2 = new ImpenetrableFog()
+    val tr1 = new TorrentialRain()
+    val tr2 = new TorrentialRain()
+
+    assertEquals(mb1, mb2)
+    assertEquals(na1, na2)
+    assertEquals(tb1, tb2)
+    assertEquals(bf1, bf2)
+    assertEquals(cw1, cw2)
+    assertEquals(if1, if2)
+    assertEquals(tr1, tr2)
+    assertNotEquals[Any, Any](mb1,na1)
+    assertNotEquals[Any, Any](mb1,if1)
+    assertNotEquals[Any, Any](if1,tr1)
 
   }
 
