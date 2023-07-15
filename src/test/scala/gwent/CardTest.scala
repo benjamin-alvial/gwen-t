@@ -38,6 +38,10 @@ class CardTest extends FunSuite {
   test("Card must have base strength.") {
     assertEquals(U_plain_card.getStrength, expected = 100)
   }
+  
+  test("Card must have a current strength, initially equal to the base strength.") {
+    assertEquals(U_plain_card.getCurrentStrength, expected = 100)
+  }
 
   test("Weather cards must have an effect.") {
     assertEquals(W_card.getAbility, expected = new BitingFrost())

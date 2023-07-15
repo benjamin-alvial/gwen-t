@@ -6,7 +6,8 @@ import gwent.card.general.AbstractCard
 
 /** Represents the unit cards.
  *
- * A unit card is placed on one of three rows to accumulate strength.
+ * A unit card is placed on one of three rows to accumulate strength,
+ * which begins at the given base strength.
  * Every unit card has an ability, but if it doesn't have an effect, it will be the null ability.
  *
  * @param name The name of the unit card.
@@ -15,10 +16,17 @@ import gwent.card.general.AbstractCard
  * @constructor Creates a new unit card with the specified name, strength, and ability.
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 abstract class AbstractUnitCard(private val name: String, private val strength: Int, private val ability: UnitAbility) extends AbstractCard(name, ability) {
-  /** Returns the strength of the unit card. */
+  /** The current strength of a unit card.
+   * It is initially the base strength of the card and changes when other cards are placed on the board/ */
+  private var current_strength = strength
+
+  /** Returns the base strength of the unit card. */
   def getStrength: Int = strength
-  
+
+  /** Returns the current strength of the unit card. */
+  def getCurrentStrength: Int = current_strength
+
 }
