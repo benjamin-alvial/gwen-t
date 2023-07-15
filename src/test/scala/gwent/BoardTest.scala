@@ -6,6 +6,9 @@ import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import gwent.card.weather.WeatherCard
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import gwent.board.weather.WeatherZone
+
+import cl.uchile.dcc.gwent.ability.unit.concrete.NullAbility
+import cl.uchile.dcc.gwent.ability.weather.concrete.BitingFrost
 import munit.FunSuite
 
 /** Tests methods related to a Player playing Cards on the Zones of the Board. */
@@ -32,10 +35,10 @@ class BoardTest extends FunSuite {
     USR.setSide(s1)
     CPU.setSide(s2)
 
-    U_close_card = new CloseUnitCard("C1", 100, "NULL")
-    U_ranged_card = new RangedUnitCard("R1", 100, "NULL")
-    U_siege_card = new SiegeUnitCard("S1", 100, "NULL")
-    W_card = new WeatherCard("W1", "BF")
+    U_close_card = new CloseUnitCard("C1", 100, new NullAbility())
+    U_ranged_card = new RangedUnitCard("R1", 100, new NullAbility())
+    U_siege_card = new SiegeUnitCard("S1", 100, new NullAbility())
+    W_card = new WeatherCard("W1", new BitingFrost())
 
     USR.getHand.take()
     USR.getHand.take()
@@ -129,7 +132,7 @@ class BoardTest extends FunSuite {
     assertEquals(USR.getSide.getBoard.getWeatherZone.getCurrentCards.getAmount, 1)
 
     // If another card is added, the old one should be replaced.
-    val W_card_other = new WeatherCard("W2", "BF")
+    val W_card_other = new WeatherCard("W2", new BitingFrost())
     USR.getHand.put(W_card_other)
     USR.play(W_card_other)
     assertEquals(USR.getSide.getBoard.getWeatherZone.getCurrentCards.occurrences(W_card), 0)

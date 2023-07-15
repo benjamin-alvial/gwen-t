@@ -5,6 +5,9 @@ import gwent.card.set.CardSet
 import gwent.card.unit.{AbstractUnitCard, CloseUnitCard}
 import gwent.card.weather.WeatherCard
 import gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
+
+import cl.uchile.dcc.gwent.ability.unit.concrete.{MoralBoost, NullAbility}
+import cl.uchile.dcc.gwent.ability.weather.concrete.{BitingFrost, ImpenetrableFog}
 import munit.FunSuite
 
 /** Tests methods related to Cards and CardSets. */
@@ -18,9 +21,9 @@ class CardTest extends FunSuite {
   var Empty_set: CardSet = null
 
   override def beforeEach(context: BeforeEach): Unit = {
-    U_plain_card = new CloseUnitCard("C1", 100, "NULL")
-    U_effect_card = new CloseUnitCard("C2", 100, "MB")
-    W_card = new WeatherCard("W1", "BF")
+    U_plain_card = new CloseUnitCard("C1", 100, new NullAbility())
+    U_effect_card = new CloseUnitCard("C2", 100, new MoralBoost())
+    W_card = new WeatherCard("W1", new BitingFrost())
 
     Build_set = new CardSet(true)
     Empty_set = new CardSet(false)
@@ -37,7 +40,7 @@ class CardTest extends FunSuite {
   }
 
   test("Weather cards must have an effect.") {
-    assertEquals(W_card.getAbility, expected = "BF")
+    assertEquals(W_card.getAbility, expected = new BitingFrost())
   }
 
   test("Card sets must have the desired amount of cards.") {
@@ -102,13 +105,13 @@ class CardTest extends FunSuite {
     assertEquals(W_card, W_card)
 
     // Card with another with same name and ability.
-    val U_plain_card_copy = new CloseUnitCard("C1", 100, "NULL")
+    val U_plain_card_copy = new CloseUnitCard("C1", 100, new NullAbility())
     assertEquals(U_plain_card, U_plain_card_copy)
 
-    val U_effect_card_copy = new CloseUnitCard("C2", 100, "MB")
+    val U_effect_card_copy = new CloseUnitCard("C2", 100, new MoralBoost())
     assertEquals(U_effect_card, U_effect_card_copy)
 
-    val W_card_copy = new WeatherCard("W1", "BF")
+    val W_card_copy = new WeatherCard("W1", new BitingFrost())
     assertEquals(W_card, W_card_copy)
 
     // Card with object of another type (String).
@@ -116,26 +119,18 @@ class CardTest extends FunSuite {
     assertNotEquals[Any, Any](U_effect_card, "C2")
     assertNotEquals[Any, Any](W_card, "W1")
 
-    // Cards of different subclasses (CloseUnitCard and WeatherCard)
-    assertNotEquals[Any, Any](U_plain_card, W_card)
-    assertNotEquals[Any, Any](U_effect_card, W_card)
-
-    val U_same_name_effect = new WeatherCard("XX", "ZZ")
-    val W_same_name_effect = new CloseUnitCard("XX", 100, "ZZ")
-    assertNotEquals[Any, Any](U_same_name_effect, W_same_name_effect)
-
     // Cards with same name but different ability.
-    val U_plain_other_effect = new CloseUnitCard("C2", 100,"MB")
+    val U_plain_other_effect = new CloseUnitCard("C2", 100, new MoralBoost())
     assertNotEquals(U_plain_card, U_plain_other_effect)
 
-    val W_card_other_effect = new WeatherCard("W1", "IF")
+    val W_card_other_effect = new WeatherCard("W1", new ImpenetrableFog())
     assertNotEquals(W_card, W_card_other_effect)
 
     // Cards with same ability but different name.
-    val U_plain_other_name = new CloseUnitCard("C3", 100,"MB")
+    val U_plain_other_name = new CloseUnitCard("C3", 100, new MoralBoost())
     assertNotEquals(U_plain_card, U_plain_other_name)
 
-    val W_card_other_name = new WeatherCard("W2", "BF")
+    val W_card_other_name = new WeatherCard("W2", new BitingFrost())
     assertNotEquals(W_card, W_card_other_name)
   }
 

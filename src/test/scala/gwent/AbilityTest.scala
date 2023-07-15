@@ -14,7 +14,7 @@ class AbilityTest extends FunSuite {
   var s2: Side = null
   var USR: UserPlayer = null
   var CPU: ComputerPlayer = null
-  var given_strength: Int = null
+  var given_strength: Int = 0
   var U_close_card_C1_MB: CloseUnitCard = null
   var U_close_card_C2_TB: CloseUnitCard = null
   var U_close_card_C2_NA: CloseUnitCard = null
