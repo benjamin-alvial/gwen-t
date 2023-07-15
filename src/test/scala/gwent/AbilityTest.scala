@@ -1,8 +1,9 @@
 package cl.uchile.dcc
 package gwent
 
+import cl.uchile.dcc.gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
 import cl.uchile.dcc.gwent.board.general.{Board, Side}
-import cl.uchile.dcc.gwent.card.unit.CloseUnitCard
+import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import munit.FunSuite
 
@@ -13,6 +14,7 @@ class AbilityTest extends FunSuite {
   var s2: Side = null
   var USR: UserPlayer = null
   var CPU: ComputerPlayer = null
+  var given_strength: Int = null
   var U_close_card_C1_MB: CloseUnitCard = null
   var U_close_card_C2_TB: CloseUnitCard = null
   var U_close_card_C2_NA: CloseUnitCard = null
@@ -60,78 +62,78 @@ class AbilityTest extends FunSuite {
   }
 
   test("Testing TightBond for EP5.") {
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().put(U_close_card_C1_MB)
-    USR.getHand().put(U_close_card_C2_TB)
-    USR.getHand().put(U_close_card_C2_NA)
-    USR.getHand().put(U_close_card_C3_NA)
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(U_close_card_C1_MB)
+    USR.getHand.put(U_close_card_C2_TB)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C3_NA)
 
     USR.play(U_close_card_C2_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
     USR.play(U_close_card_C3_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
     USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength * 2)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
 
   }
 
   test("Three possible effects of close combat cards can be played, null abilities first.") {
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().put(U_close_card_C1_MB)
-    USR.getHand().put(U_close_card_C2_TB)
-    USR.getHand().put(U_close_card_C2_NA)
-    USR.getHand().put(U_close_card_C3_NA)
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(U_close_card_C1_MB)
+    USR.getHand.put(U_close_card_C2_TB)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C3_NA)
 
     USR.play(U_close_card_C2_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
     USR.play(U_close_card_C3_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
     USR.play(U_close_card_C1_MB) // Add 1 to each in row, except itself.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength+1)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength+1)
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength+1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength+1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
     USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), (given_strength+1)*2)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), (given_strength+1))
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength*2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, (given_strength+1)*2)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, (given_strength+1))
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
   }
 
   test("Three possible effects of close combat cards can be played, null abilities last.") {
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().put(U_close_card_C1_MB)
-    USR.getHand().put(U_close_card_C2_TB)
-    USR.getHand().put(U_close_card_C2_NA)
-    USR.getHand().put(U_close_card_C3_NA)
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(U_close_card_C1_MB)
+    USR.getHand.put(U_close_card_C2_TB)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C3_NA)
 
     USR.play(U_close_card_C1_MB) // Add 1 to each in row, except itself.
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
     USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength * 2)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
     USR.play(U_close_card_C2_NA) // Do nothing.
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength * 2)
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
     USR.play(U_close_card_C3_NA) // Do nothing.
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), given_strength * 2)
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
   }
 
   test("Multiple instances of the same card should be independent.") {
@@ -140,14 +142,14 @@ class AbilityTest extends FunSuite {
     val U_close_card_C2_NA_copy = new CloseUnitCard("C2", given_strength, new NullAbility())
     val U_close_card_C3_NA_copy = new CloseUnitCard("C3", given_strength, new NullAbility())
 
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().take()
-    USR.getHand().put(U_close_card_C1_MB)
-    USR.getHand().put(U_close_card_C2_TB)
-    USR.getHand().put(U_close_card_C2_NA)
-    USR.getHand().put(U_close_card_C3_NA)
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(U_close_card_C1_MB)
+    USR.getHand.put(U_close_card_C2_TB)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C3_NA)
 
     USR.play(U_close_card_C2_NA) // Do nothing.
     USR.play(U_close_card_C3_NA) // Do nothing.
@@ -155,31 +157,31 @@ class AbilityTest extends FunSuite {
     USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
 
     // Copies are not modified.
-    assertEquals(U_close_card_C1_MB_copy.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB_copy.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_NA_copy.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C3_NA_copy.getCurrentStrength(), given_strength)
+    assertEquals(U_close_card_C1_MB_copy.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB_copy.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_NA_copy.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA_copy.getCurrentStrength, given_strength)
 
     // Copies can aldo be played on the board.
-    USR.getHand().put(U_close_card_C1_MB_copy)
-    USR.getHand().put(U_close_card_C2_TB_copy)
-    USR.getHand().put(U_close_card_C2_NA_copy)
-    USR.getHand().put(U_close_card_C3_NA_copy)
+    USR.getHand.put(U_close_card_C1_MB_copy)
+    USR.getHand.put(U_close_card_C2_TB_copy)
+    USR.getHand.put(U_close_card_C2_NA_copy)
+    USR.getHand.put(U_close_card_C3_NA_copy)
 
     USR.play(U_close_card_C2_NA_copy) // Do nothing.
     USR.play(U_close_card_C3_NA_copy) // Do nothing.
     USR.play(U_close_card_C1_MB_copy) // Add 1 to each in row, except itself.
     USR.play(U_close_card_C2_TB_copy) // Multiply by 2 each in row with same name, including itself.
 
-    assertEquals(U_close_card_C2_NA.getCurrentStrength(), ((given_strength + 1) * 2 + 1) * 2)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength(), (given_strength + 1) + 1)
-    assertEquals(U_close_card_C1_MB.getCurrentStrength(), given_strength + 1)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength(), (given_strength * 2 + 1) * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, ((given_strength + 1) * 2 + 1) * 2)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, (given_strength + 1) + 1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength + 1)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, (given_strength * 2 + 1) * 2)
 
-    assertEquals(U_close_card_C2_NA_copy.getCurrentStrength(), (given_strength + 1) * 2)
-    assertEquals(U_close_card_C3_NA_copy.getCurrentStrength(), given_strength + 1)
-    assertEquals(U_close_card_C1_MB_copy.getCurrentStrength(), given_strength)
-    assertEquals(U_close_card_C2_TB_copy.getCurrentStrength(), given_strength * 2)
+    assertEquals(U_close_card_C2_NA_copy.getCurrentStrength, (given_strength + 1) * 2)
+    assertEquals(U_close_card_C3_NA_copy.getCurrentStrength, given_strength + 1)
+    assertEquals(U_close_card_C1_MB_copy.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB_copy.getCurrentStrength, given_strength * 2)
   }
 
   test("PLaying a close combat card should leave cards from other rows unchanged.") {
