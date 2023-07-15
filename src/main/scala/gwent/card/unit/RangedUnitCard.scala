@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent.card.unit
 
+import gwent.ability.unit.general.UnitAbility
 import gwent.board.general.Side
 
 /** Represents the unit cards of type ranged. They can only be placed in Ranged zones.
@@ -16,9 +17,9 @@ import gwent.board.general.Side
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
-class RangedUnitCard(private val name: String, private val strength: Int, private val ability: String) extends AbstractUnitCard(name, strength, ability) with Equals {
+class RangedUnitCard(private val name: String, private val strength: Int, private val ability: UnitAbility) extends AbstractUnitCard(name, strength, ability) with Equals {
   /** Sends a message to the given side to receive the card of type ranged. 
    * @param s The side to which the card will be played. */
   def play(s: Side): Unit = s.receiveRanged(this)

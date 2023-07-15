@@ -1,11 +1,11 @@
 package cl.uchile.dcc
 package gwent.card.set
 
-import gwent.card.unit.CloseUnitCard
-import gwent.card.unit.RangedUnitCard
-import gwent.card.unit.SiegeUnitCard
-import gwent.card.weather.WeatherCard
+import gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
+import gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
 import gwent.card.general.Card
+import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
+import gwent.card.weather.WeatherCard
 import gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 
 import scala.collection.mutable.ListBuffer
@@ -26,7 +26,7 @@ import scala.util.Random
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 class CardSet(build: Boolean) extends Equals {
 
@@ -36,34 +36,34 @@ class CardSet(build: Boolean) extends Equals {
   if (build) {
     list = ListBuffer(
       // Future: implement abilities.
-      new CloseUnitCard("C1", 100, "NULL"),
-      new CloseUnitCard("C1", 100, "NULL"),
-      new CloseUnitCard("C2", 100, "NULL"),
-      new CloseUnitCard("C2", 100, "NULL"),
-      new CloseUnitCard("C1", 100, "MB"), // Morale Boost.
-      new CloseUnitCard("C1", 100, "TB"), // Tight Bond.
+      new CloseUnitCard("C1", 100, new NullAbility()),
+      new CloseUnitCard("C1", 100, new NullAbility()),
+      new CloseUnitCard("C2", 100, new NullAbility()),
+      new CloseUnitCard("C2", 100, new NullAbility()),
+      new CloseUnitCard("C1", 100, new MoralBoost()), // Morale Boost.
+      new CloseUnitCard("C1", 100, new TightBond()), // Tight Bond.
 
-      new RangedUnitCard("R1", 100, "NULL"),
-      new RangedUnitCard("R1", 100, "NULL"),
-      new RangedUnitCard("R2", 100, "NULL"),
-      new RangedUnitCard("R2", 100, "NULL"),
-      new RangedUnitCard("R1", 100, "MB"), // Morale Boost.
-      new RangedUnitCard("R1", 100, "TB"), // Tight Bond.
+      new RangedUnitCard("R1", 100, new NullAbility()),
+      new RangedUnitCard("R1", 100, new NullAbility()),
+      new RangedUnitCard("R2", 100, new NullAbility()),
+      new RangedUnitCard("R2", 100, new NullAbility()),
+      new RangedUnitCard("R1", 100, new MoralBoost()), // Morale Boost.
+      new RangedUnitCard("R1", 100, new TightBond()), // Tight Bond.
 
-      new SiegeUnitCard("S1", 100, "NULL"),
-      new SiegeUnitCard("S1", 100, "NULL"),
-      new SiegeUnitCard("S2", 100, "NULL"),
-      new SiegeUnitCard("S2", 100, "NULL"),
-      new SiegeUnitCard("S1", 100, "MB"), // Morale Boost.
-      new SiegeUnitCard("S1", 100, "TB"), // Tight Bond.
+      new SiegeUnitCard("S1", 100, new NullAbility()),
+      new SiegeUnitCard("S1", 100, new NullAbility()),
+      new SiegeUnitCard("S2", 100, new NullAbility()),
+      new SiegeUnitCard("S2", 100, new NullAbility()),
+      new SiegeUnitCard("S1", 100, new MoralBoost()), // Morale Boost.
+      new SiegeUnitCard("S1", 100, new TightBond()), // Tight Bond.
 
-      new WeatherCard("W1", "BF"), // Biting Frost.
-      new WeatherCard("W1", "BF"), // Biting Frost.
-      new WeatherCard("W2", "IF"), // Impenetrable Fog.
-      new WeatherCard("W2", "IF"), // Impenetrable Fog.
-      new WeatherCard("W3", "TR"), // Torrential Rain.
-      new WeatherCard("W3", "TR"), // Torrential Rain.
-      new WeatherCard("W4", "CW") // Clear Weather.
+      new WeatherCard("W1", new BitingFrost()), // Biting Frost.
+      new WeatherCard("W1", new BitingFrost()), // Biting Frost.
+      new WeatherCard("W2", new ImpenetrableFog()), // Impenetrable Fog.
+      new WeatherCard("W2", new ImpenetrableFog()), // Impenetrable Fog.
+      new WeatherCard("W3", new TorrentialRain()), // Torrential Rain.
+      new WeatherCard("W3", new TorrentialRain()), // Torrential Rain.
+      new WeatherCard("W4", new ClearWeather()) // Clear Weather.
       )
   }
 

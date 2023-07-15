@@ -1,6 +1,7 @@
 package cl.uchile.dcc
 package gwent.card.general
 
+import gwent.ability.general.Ability
 import gwent.card.unit.AbstractUnitCard
 import gwent.card.weather.WeatherCard
 
@@ -14,12 +15,12 @@ import gwent.card.weather.WeatherCard
  * @constructor Creates a new card with the specified name.
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
-abstract class AbstractCard(private val name: String, private val ability: String) extends Card {
+abstract class AbstractCard(private val name: String, private val ability: Ability) extends Card {
   /** Returns the name of the card. */
   def getName: String = name
 
   /** Returns the ability of the card. */
-  def getAbility: String = ability
+  def getAbility: Ability = ability
 }
