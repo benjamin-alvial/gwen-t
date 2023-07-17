@@ -2,11 +2,13 @@ package cl.uchile.dcc
 package gwent
 
 import gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
+import gwent.ability.weather.concrete
 import gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
 import gwent.board.general.{Board, Side}
 import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
+import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import munit.FunSuite
 
 class AbilityTest extends FunSuite {
@@ -29,7 +31,10 @@ class AbilityTest extends FunSuite {
   var U_close_card_S2_TB: SiegeUnitCard = null
   var U_close_card_S2_NA: SiegeUnitCard = null
   var U_close_card_S3_NA: SiegeUnitCard = null
-  //var W_card: WeatherCard = null
+  var W_card_BF: WeatherCard = null
+  var W_card_CW: WeatherCard = null
+  var W_card_IF: WeatherCard = null
+  var W_card_TR: WeatherCard = null
 
   override def beforeEach(context: BeforeEach): Unit = {
     b = new Board()
@@ -59,7 +64,10 @@ class AbilityTest extends FunSuite {
     U_close_card_S2_NA = new SiegeUnitCard("S2", given_strength, new NullAbility())
     U_close_card_S3_NA = new SiegeUnitCard("S3", given_strength, new NullAbility())
 
-    //W_card = new WeatherCard("W1", "BF")
+    W_card_BF = new WeatherCard("W1", new BitingFrost())
+    W_card_CW = new WeatherCard("W2", new ClearWeather())
+    W_card_IF = new WeatherCard("W3", new ImpenetrableFog())
+    W_card_TR = new WeatherCard("W4", new TorrentialRain())
 
   }
 
@@ -220,6 +228,116 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C3_NA_copy.getCurrentStrength, given_strength + 1)
     assertEquals(U_close_card_C1_MB_copy.getCurrentStrength, given_strength)
     assertEquals(U_close_card_C2_TB_copy.getCurrentStrength, given_strength * 2)
+  }
+
+  test("Playing a close combat card should leave other player's close combat cards unchanged.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C2_TB)
+
+    CPU.getHand.take()
+    CPU.getHand.put(U_close_card_C1_MB)
+
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength)
+
+    USR.play(U_close_card_C2_NA)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength)
+
+    // This card should not boost the user's close combat card.
+    CPU.play(U_close_card_C1_MB)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength)
+
+    USR.play(U_close_card_C2_TB)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength*2)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
+
+  }
+
+  test("Biting Frost reduces strength to 1 for close combat units.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_BF)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C3_NA)
+    USR.getHand.put(U_close_card_C1_MB)
+    USR.getHand.put(U_close_card_C2_TB)
+
+    // Initially weather is clear.
+    USR.play(U_close_card_C2_NA)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+
+    // And unit abilities work like always.
+    USR.play(U_close_card_C1_MB)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength+1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+
+    // Once weather card for Biting Frost is played, close combat units are frozen.
+    USR.play(W_card_BF)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
+
+    // Any new card added feels the effect of the current weather.
+    USR.play(U_close_card_C3_NA)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
+
+    // Even if the new card has a unit effect, weather overrides it.
+    USR.play(U_close_card_C2_TB)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, 1)
+
+  }
+
+  test("Biting Frost works for both player's close combat cards.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_BF)
+    USR.getHand.put(U_close_card_C2_NA)
+    USR.getHand.put(U_close_card_C1_MB)
+    CPU.getHand.take()
+    CPU.getHand.take()
+    CPU.getHand.put(U_close_card_C2_TB)
+    CPU.getHand.put(U_close_card_C3_NA)
+
+    USR.play(U_close_card_C1_MB)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_C2_TB)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
+
+    USR.play(U_close_card_C2_NA)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_C3_NA)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
+
+    USR.play(W_card_BF)
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, 1)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
+
   }
 
   test("Playing a close combat card should leave cards from other rows unchanged.") {
