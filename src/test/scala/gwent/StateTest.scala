@@ -1,7 +1,8 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.controller.GameController
+import gwent.controller.GameController
+
 import munit.FunSuite
 
 /** Tests methods related to states and their transitions. */

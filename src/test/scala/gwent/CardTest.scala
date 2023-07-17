@@ -1,13 +1,13 @@
 package cl.uchile.dcc
 package gwent
 
+import gwent.ability.unit.concrete.{MoralBoost, NullAbility}
+import gwent.ability.weather.concrete.{BitingFrost, ImpenetrableFog}
 import gwent.card.set.CardSet
 import gwent.card.unit.{AbstractUnitCard, CloseUnitCard}
 import gwent.card.weather.WeatherCard
 import gwent.exceptions.{CardNotInSetException, TakeFromEmptySetException}
 
-import cl.uchile.dcc.gwent.ability.unit.concrete.{MoralBoost, NullAbility}
-import cl.uchile.dcc.gwent.ability.weather.concrete.{BitingFrost, ImpenetrableFog}
 import munit.FunSuite
 
 /** Tests methods related to Cards and CardSets. */

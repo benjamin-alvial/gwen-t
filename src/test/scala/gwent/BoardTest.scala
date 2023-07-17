@@ -1,14 +1,14 @@
 package cl.uchile.dcc
 package gwent
 
+import gwent.ability.unit.concrete.NullAbility
+import gwent.ability.weather.concrete.BitingFrost
 import gwent.board.general.{AbstractZone, Board, Side}
+import gwent.board.weather.WeatherZone
 import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
 import gwent.card.weather.WeatherCard
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
-import gwent.board.weather.WeatherZone
 
-import cl.uchile.dcc.gwent.ability.unit.concrete.NullAbility
-import cl.uchile.dcc.gwent.ability.weather.concrete.BitingFrost
 import munit.FunSuite
 
 /** Tests methods related to a Player playing Cards on the Zones of the Board. */

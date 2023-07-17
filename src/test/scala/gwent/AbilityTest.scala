@@ -6,11 +6,12 @@ import gwent.ability.weather.concrete
 import gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
 import gwent.board.general.{Board, Side}
 import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
+import gwent.card.weather.WeatherCard
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 
-import cl.uchile.dcc.gwent.card.weather.WeatherCard
 import munit.FunSuite
 
+/** Tests methods related to Abilities and their effects on other cards. */
 class AbilityTest extends FunSuite {
 
   var b: Board = null
