@@ -1,8 +1,9 @@
 package cl.uchile.dcc
 package gwent.board.unit
 
-import gwent.card.unit.RangedUnitCard
+import gwent.ability.weather.concrete.{ClearWeather, ImpenetrableFog}
 import gwent.board.general.AbstractZone
+import gwent.card.unit.RangedUnitCard
 
 /** Represents the unit where only cards of type [[RangedUnitCard]] are played.
  *
@@ -13,9 +14,11 @@ import gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 class RangedRow extends AbstractRow with Equals {
+  weatherTypes.addOne(new ImpenetrableFog())
+  
   /** Returns true if the other instance is of class RangedRow. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[RangedRow]
 

@@ -18,7 +18,7 @@ import gwent.player.concrete.{ComputerPlayer, UserPlayer}
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 class Side(b: Board) extends Equals {
   /** Zone for the close combat cards. */
@@ -53,6 +53,14 @@ class Side(b: Board) extends Equals {
   /** Receives a siege card and calls on the corresponding zone to play it. 
    * @param c The card to be played on the siege zone. */
   def receiveSiege(c: SiegeUnitCard): Unit = siege_zone.play(c)
+
+  /** Notifies the zones of the side to update due to the weather card that has been played.
+   * @param c The weather card that was played. */
+  def updateWeather(c: WeatherCard): Unit = {
+    close_zone.updateWeather(c)
+    ranged_zone.updateWeather(c)
+    siege_zone.updateWeather(c)
+  }
 
   /** Returns true if the other instance is of class Side. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Side]

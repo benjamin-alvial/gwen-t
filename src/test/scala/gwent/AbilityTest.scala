@@ -14,8 +14,6 @@ import munit.FunSuite
 class AbilityTest extends FunSuite {
 
   var b: Board = null
-  var s1: Side = null
-  var s2: Side = null
   var USR: UserPlayer = null
   var CPU: ComputerPlayer = null
   var given_strength: Int = 0
@@ -38,14 +36,12 @@ class AbilityTest extends FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     b = new Board()
-    s1 = new Side(b)
-    s2 = new Side(b)
 
     USR = new UserPlayer("Kermit")
     CPU = new ComputerPlayer("Computer")
 
-    USR.setSide(s1)
-    CPU.setSide(s2)
+    USR.setSide(b.getUserSide)
+    CPU.setSide(b.getComputerSide)
 
     given_strength = 10
 
@@ -287,18 +283,18 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
     assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
 
-    // Any new card added feels the effect of the current weather.
+    // Any new card added doesn't feel the effect of the previously imposed weather.
     USR.play(U_close_card_C3_NA)
     assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
     assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
 
-    // Even if the new card has a unit effect, weather overrides it.
+    // If the new card has a unit effect, it acts on cards affected by weather.
     USR.play(U_close_card_C2_TB)
-    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, 1*2)
     assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength, 1)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
 
   }
 

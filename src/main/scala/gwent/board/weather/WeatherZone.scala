@@ -1,8 +1,9 @@
 package cl.uchile.dcc
 package gwent.board.weather
 
-import gwent.card.general.Card
 import gwent.board.general.AbstractZone
+import gwent.card.general.Card
+import gwent.card.weather.WeatherCard
 
 /** Represents the weather where only cards of type [[WeatherCard]] are played.
  *
@@ -13,13 +14,13 @@ import gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.4
+ * @version 0.1.5
  */
 class WeatherZone extends AbstractZone with Equals {
 
   /** Receives a weather card and places it on its zone, removing the old one. 
    * @param c The card to be played on the weather zone. */
-  override def play(c: Card): Unit = {
+  def play(c: WeatherCard): Unit = {
     if (getCurrentCards.getAmount != 0) getCurrentCards.take()
     getCurrentCards.put(c)
   }

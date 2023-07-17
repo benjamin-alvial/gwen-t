@@ -19,13 +19,17 @@ import gwent.card.general.AbstractCard
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.6
+ * @version 0.1.7
  */
 class WeatherCard(private val name: String, private val ability: WeatherAbility) extends AbstractCard(name, ability) with Equals {
   /** Sends a message to the given side's board to receive the card of type weather. 
    *
    * @param s The side to which the card will be played. */
-  def play(s: Side): Unit = s.getBoard.receiveWeather(this)
+  def play(s: Side): Unit = {
+    s.getBoard.receiveWeather(this)
+  }
+
+  override def getAbility: WeatherAbility = ability
 
   /** Returns true if the other instance is of class WeatherCard. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[WeatherCard]

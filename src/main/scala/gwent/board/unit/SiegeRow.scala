@@ -1,8 +1,10 @@
 package cl.uchile.dcc
 package gwent.board.unit
 
-import gwent.card.unit.SiegeUnitCard
+import gwent.ability.weather.concrete.{ClearWeather, TorrentialRain}
+import gwent.ability.weather.general.WeatherAbility
 import gwent.board.general.AbstractZone
+import gwent.card.unit.SiegeUnitCard
 
 /** Represents the unit where only cards of type [[SiegeUnitCard]] are played.
  *
@@ -13,9 +15,11 @@ import gwent.board.general.AbstractZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.2
+ * @version 0.1.3
  */
 class SiegeRow extends AbstractRow with Equals {
+  weatherTypes.addOne(new TorrentialRain())
+  
   /** Returns true if the other instance is of class SiegeRow. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[SiegeRow]
 

@@ -18,7 +18,7 @@ import gwent.board.weather.WeatherZone
  * }}}
  * @author benjamin-alvial
  * @since 0.1.0
- * @version 0.1.3
+ * @version 0.1.4
  */
 class Board extends Equals {
   /** Section for the user player. */
@@ -37,10 +37,15 @@ class Board extends Equals {
   /** Returns the weather zone of the board. */
   def getWeatherZone: WeatherZone = weather_zone
 
-  /** Receives a weather card and calls on the corresponding weather to play it. 
+  /** Receives a weather card and calls on the corresponding weather zone to play it,
+   * also notifying all cards on both sides of the board that it has been played. 
    *
    * @param c The card to be played on weather zone. */
-  def receiveWeather(c: WeatherCard): Unit = weather_zone.play(c)
+  def receiveWeather(c: WeatherCard): Unit = {
+    weather_zone.play(c)
+    user_side.updateWeather(c)
+    computer_side.updateWeather(c)
+  }
 
   /** Returns true if the other instance is of class Board. */
   override def canEqual(that: Any): Boolean = that.isInstanceOf[Board]

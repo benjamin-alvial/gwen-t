@@ -26,14 +26,12 @@ class BoardTest extends FunSuite {
 
   override def beforeEach(context: BeforeEach): Unit = {
     b = new Board()
-    s1 = new Side(b)
-    s2 = new Side(b)
 
     USR = new UserPlayer("Kermit")
     CPU = new ComputerPlayer("Computer")
 
-    USR.setSide(s1)
-    CPU.setSide(s2)
+    USR.setSide(b.getUserSide)
+    CPU.setSide(b.getComputerSide)
 
     U_close_card = new CloseUnitCard("C1", 100, new NullAbility())
     U_ranged_card = new RangedUnitCard("R1", 100, new NullAbility())
@@ -51,6 +49,10 @@ class BoardTest extends FunSuite {
   }
 
   test("Two sides are equal if they have the same cards and they belong to the same board") {
+    val b2 = new Board()
+    s1 = new Side(b2)
+    s2 = new Side(b2)
+
     s1.receiveClose(U_close_card)
     s2.receiveClose(U_close_card)
     s1.receiveRanged(U_ranged_card)
@@ -81,6 +83,8 @@ class BoardTest extends FunSuite {
   }
 
   test("A board has two sides and a weather zone.") {
+    s1 = new Side(b)
+    s2 = new Side(b)
     assertEquals(b.getUserSide, s1)
     assertEquals(b.getComputerSide, s2)
   }
