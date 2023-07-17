@@ -1,11 +1,12 @@
 package cl.uchile.dcc
 package gwent
 
-import cl.uchile.dcc.gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
-import cl.uchile.dcc.gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
-import cl.uchile.dcc.gwent.board.general.{Board, Side}
-import cl.uchile.dcc.gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
-import cl.uchile.dcc.gwent.player.concrete.{ComputerPlayer, UserPlayer}
+import gwent.ability.unit.concrete.{MoralBoost, NullAbility, TightBond}
+import gwent.ability.weather.concrete.{BitingFrost, ClearWeather, ImpenetrableFog, TorrentialRain}
+import gwent.board.general.{Board, Side}
+import gwent.card.unit.{CloseUnitCard, RangedUnitCard, SiegeUnitCard}
+import gwent.player.concrete.{ComputerPlayer, UserPlayer}
+
 import munit.FunSuite
 
 class AbilityTest extends FunSuite {
@@ -41,7 +42,7 @@ class AbilityTest extends FunSuite {
     USR.setSide(s1)
     CPU.setSide(s2)
 
-    val given_strength: Int = 10
+    given_strength = 10
 
     U_close_card_C1_MB = new CloseUnitCard("C1", given_strength, new MoralBoost())
     U_close_card_C2_TB = new CloseUnitCard("C2", given_strength, new TightBond())
@@ -91,6 +92,13 @@ class AbilityTest extends FunSuite {
 
   }
 
+  test("Initial values for strengths are default values.") {
+    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
+  }
+
   test("Testing TightBond for EP5.") {
     USR.getHand.take()
     USR.getHand.take()
@@ -135,7 +143,7 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
     USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
     assertEquals(U_close_card_C2_NA.getCurrentStrength, (given_strength+1)*2)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength, (given_strength+1))
+    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength+1)
     assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
     assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
   }
@@ -214,7 +222,7 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C2_TB_copy.getCurrentStrength, given_strength * 2)
   }
 
-  test("PLaying a close combat card should leave cards from other rows unchanged.") {
+  test("Playing a close combat card should leave cards from other rows unchanged.") {
 
   }
 }
