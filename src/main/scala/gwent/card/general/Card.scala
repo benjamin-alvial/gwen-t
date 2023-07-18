@@ -17,8 +17,10 @@ trait Card {
    * The target zone for the card is resolved by its type. 
    * @param side The side onto which the card will be played. */
   def play(side: Side): Unit
-  
+
+  /** Returns the name of the card. */
   def getName: String
-  
+
+  /** Returns the ability of the card. */
   def getAbility: Ability
 }

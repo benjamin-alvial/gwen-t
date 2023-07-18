@@ -29,6 +29,7 @@ class WeatherCard(private val name: String, private val ability: WeatherAbility)
     s.getBoard.receiveWeather(this)
   }
 
+  /** Returns the ability of the weather card. */
   override def getAbility: WeatherAbility = ability
 
   /** Returns true if the other instance is of class WeatherCard. */

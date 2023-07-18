@@ -7,9 +7,10 @@ import gwent.card.unit.CloseUnitCard
 
 import scala.collection.mutable.ListBuffer
 
-/** Represents the unit where only cards of type [[CloseUnitCard]] are played.
+/** Represents the row where only cards of type [[CloseUnitCard]] are played.
+ * It can be affected by the effect [[BitingFrost]].
  *
- * @constructor Creates a new unit for close combat.
+ * @constructor Creates a new row for close combat.
  * @example
  * {{{
  * val close = new CloseRow()

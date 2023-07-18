@@ -28,11 +28,13 @@ abstract class AbstractUnitCard(private val name: String, private val strength: 
   /** Returns the base strength of the unit card. */
   def getStrength: Int = strength
 
+  /** Returns the ability of the unit card. */
   override def getAbility: UnitAbility = ability
 
   /** Returns the current strength of the unit card. */
   def getCurrentStrength: Int = current_strength
 
+  /** Sets the current strength of the unit card to the given value. */
   def setCurrentStrength(x: Int): Unit = {
     current_strength = x
   }

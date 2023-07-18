@@ -6,9 +6,10 @@ import gwent.ability.weather.general.WeatherAbility
 import gwent.board.general.AbstractZone
 import gwent.card.unit.SiegeUnitCard
 
-/** Represents the unit where only cards of type [[SiegeUnitCard]] are played.
+/** Represents the row where only cards of type [[SiegeUnitCard]] are played.
+ * It can be affected by the effect [[TorrentialRain]].
  *
- * @constructor Creates a new unit for siege.
+ * @constructor Creates a row unit for siege.
  * @example
  * {{{
  * val siege = new SiegeRow()

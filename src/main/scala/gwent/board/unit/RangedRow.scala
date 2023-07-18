@@ -5,9 +5,10 @@ import gwent.ability.weather.concrete.{ClearWeather, ImpenetrableFog}
 import gwent.board.general.AbstractZone
 import gwent.card.unit.RangedUnitCard
 
-/** Represents the unit where only cards of type [[RangedUnitCard]] are played.
+/** Represents the row where only cards of type [[RangedUnitCard]] are played.
+ * It can be affected by the effect [[ImpenetrableFog]].
  *
- * @constructor Creates a new unit for ranged.
+ * @constructor Creates a new row for ranged.
  * @example
  * {{{
  * val ranged = new RangedRow()
