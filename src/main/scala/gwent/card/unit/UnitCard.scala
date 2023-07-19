@@ -14,12 +14,13 @@ import gwent.observer.ObserverCard
  * @version 0.1.0
  */
 trait UnitCard extends ObserverCard with Card {
-  
+  /** Returns the base strength of the card. */
   def getStrength: Int
+  /** Returns the current strength of the card. */
   def getCurrentStrength: Int
-
+  /** Sets the current strength of the card to the given value. */
   def setCurrentStrength(x: Int): Unit
-
+  /** Returns the ability of the card. */
   override def getAbility: UnitAbility
 
 }
