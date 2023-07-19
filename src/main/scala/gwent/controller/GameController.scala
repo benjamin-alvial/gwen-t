@@ -7,6 +7,8 @@ import gwent.player.concrete.{ComputerPlayer, UserPlayer}
 import gwent.states.concrete.StartGame
 import gwent.states.general.State
 
+import scala.io.StdIn.readLine
+
 /** Represents the controller that manages the flow of the game.
  * It has a board in which the game is played and the two players of the game.
  *
@@ -76,8 +78,21 @@ class GameController extends Observer {
   }
 
   /** Changes the state from StartGame to StartRound,
-   * receiving the input of the player's name and shuffling their decks. */
-  def input_name(): Unit = state.input_name()
+   * receiving the input of the player's name, creating the board and its players
+   * and shuffling their decks. */
+  def input_name(): Unit = {
+    //val input = readLine("insert name> ")
+    val input = "Kermit"
+
+    val b = new Board()
+
+    val USR = new UserPlayer(input)
+    val CPU = new ComputerPlayer("Computer")
+
+    USR.setSide(b.getUserSide)
+    CPU.setSide(b.getComputerSide)
+    state.input_name()
+  }
   /** Changes the state from StartRound to UserPlaysOne,
    * if the thrown coin lands on user. */
   def coin_user(): Unit = state.coin_user()
