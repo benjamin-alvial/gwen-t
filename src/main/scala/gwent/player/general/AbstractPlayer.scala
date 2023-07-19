@@ -2,12 +2,13 @@ package cl.uchile.dcc
 package gwent.player.general
 
 import gwent.card.set.CardSet
-
 import gwent.board.general.Side
 import gwent.card.general.Card
 import gwent.exceptions.{CardNotInSetException, NoMoreGemsToRemoveException, TakeFromEmptySetException}
-import gwent.observer.AbstractSubject
+import gwent.observer.{Observer, Subject}
 import gwent.player.concrete.{ComputerPlayer, UserPlayer}
+
+import scala.collection.mutable.ListBuffer
 
 /** Represents a player of the game.
  *
@@ -21,7 +22,7 @@ import gwent.player.concrete.{ComputerPlayer, UserPlayer}
  * @since 0.1.0
  * @version 0.1.8
  */
-abstract class AbstractPlayer(private val name: String) extends AbstractSubject with Player with Equals {
+abstract class AbstractPlayer(private val name: String) extends Player with Subject with Equals {
 
   /** The current amount of gems, initially set as 2. */
   private var gems: Int = 2
@@ -37,6 +38,9 @@ abstract class AbstractPlayer(private val name: String) extends AbstractSubject 
 
   /** The side of the board of the player, composed of three rows on which unit cards can be played. */
   private var side: Side = null
+
+  /** The observer collection, used for the game controller. */
+  private val observerCollection: ListBuffer[Observer] = ListBuffer()
 
   /** Returns the name of the player. */
   def getName: String = name
@@ -93,6 +97,18 @@ abstract class AbstractPlayer(private val name: String) extends AbstractSubject 
       case cnis: CardNotInSetException => println("Card cannot be taken from set that doesn't contain it.")
     }
 
+  }
+
+  /** Adds the given observer (game controller) to the observer collection. */
+  def registerObserver(observer: Observer): Unit = {
+    observerCollection.addOne(observer)
+  }
+
+  /** Notifies the game controller to update. */
+  def notifyObservers(): Unit = {
+    for (o <- observerCollection) {
+      o.update()
+    }
   }
 
 }

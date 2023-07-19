@@ -2,7 +2,7 @@ package cl.uchile.dcc
 package gwent.observer
 
 /**
- * Interface used for [[AbstractSubject]], which can subscribe the game controller as observer
+ * Interface used for [[AbstractPlayer]], which can subscribe the game controller as observer
  * and notify it when certain changes have happened.
  *
  * @author benjamin-alvial
