@@ -12,8 +12,14 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class ComputerPlaysOne extends State {
+  /** Changes the state from ComputerPlaysOne to UserPlaysUnlimited,
+   * if the computer player passes their turn. */
   override def computer_pass(): Unit = this.changeState(new UserPlaysUnlimited())
+  /** Changes the state from ComputerPlaysOne to UserPlaysOne,
+   * if the computer player plays a card. */
   override def play_one_computer(): Unit = this.changeState(new UserPlaysOne())
+  
+  /** Returns always true for this class. */
   override def isComputerPlaysOne = true
 
 }

@@ -12,9 +12,15 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class NextRound extends State {
+  /** Changes the state from NextRound to UserPlaysOne,
+   * if the user had more power in previous round. */
   override def continue_user(): Unit = this.changeState(new UserPlaysOne())
-  override def continue_computer(): Unit = this.changeState(new ComputerPlaysOne())
 
+  /** Changes the state from NextRound to ComputerPlaysOne,
+   * if the computer had more power in previous round. */
+  override def continue_computer(): Unit = this.changeState(new ComputerPlaysOne())
+  
+  /** Returns always true for this class. */
   override def isNextRound = true
 
 }

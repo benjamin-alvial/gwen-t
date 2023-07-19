@@ -12,9 +12,15 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class UserPlaysUnlimited extends State {
+  /** Changes the state from UserPlaysUnlimited to EndRound,
+   * if the user player plays a card. */
   override def play_one_user(): Unit = {}
+
+  /** Changes the state from UserPlaysUnlimited,
+   * to EndRound if the player passes their turn. */
   override def end_round(): Unit = this.changeState(new EndRound())
   
+  /** Returns always true for this class. */
   override def isUserPlaysUnlimited = true
 
 }

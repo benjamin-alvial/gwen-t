@@ -12,8 +12,10 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class EndGame extends State {
+  /** Maintains the state in EndGame if the other player also died. */
   override def one_dies(): Unit = this.changeState(new EndGame())
 
+  /** Returns always true for this class. */
   override def isEndGame = true
 
 }

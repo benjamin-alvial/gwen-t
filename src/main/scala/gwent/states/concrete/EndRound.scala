@@ -12,9 +12,15 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class EndRound extends State {
+  /** Changes the state from EndRound to EndGame,
+   * if one of the players loses all their gems. */
   override def one_dies(): Unit = this.changeState(new EndGame())
-  override def one_still_alive(): Unit = this.changeState(new NextRound())
 
+  /** Changes the state from EndRound to NextRound,
+   * if both players still have gems left. */
+  override def one_still_alive(): Unit = this.changeState(new NextRound())
+  
+  /** Returns always true for this class. */
   override def isEndRound = true
 
 }

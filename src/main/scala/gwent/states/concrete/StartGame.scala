@@ -12,8 +12,11 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class StartGame extends State {
+  /** Changes the state from StartGame to StartRound,
+   * receiving the input of the player's name and shuffling their decks. */
   override def input_name(): Unit = this.changeState(new StartRound())
-
+  
+  /** Returns always true for this class. */
   override def isStartGame = true
   
 }

@@ -11,9 +11,15 @@ import gwent.states.general.State
  * @version 0.1.0
  */
 class StartRound extends State {
+  /** Changes the state from StartRound to UserPlaysOne,
+   * if the thrown coin lands on user. */
   override def coin_user(): Unit = this.changeState(new UserPlaysOne())
-  override def coin_computer(): Unit = this.changeState(new ComputerPlaysOne())
 
+  /** Changes the state from StartRound to ComputerPlaysOne,
+   * if the thrown coin lands on computer. */
+  override def coin_computer(): Unit = this.changeState(new ComputerPlaysOne())
+  
+  /** Returns always true for this class. */
   override def isStartRound = true
 
 }
