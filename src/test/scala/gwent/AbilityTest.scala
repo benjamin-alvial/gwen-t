@@ -104,29 +104,6 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
   }
 
-  test("Testing TightBond for EP5.") {
-    USR.getHand.take()
-    USR.getHand.take()
-    USR.getHand.take()
-    USR.getHand.take()
-    USR.getHand.put(U_close_card_C1_MB)
-    USR.getHand.put(U_close_card_C2_TB)
-    USR.getHand.put(U_close_card_C2_NA)
-    USR.getHand.put(U_close_card_C3_NA)
-
-    USR.play(U_close_card_C2_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
-    USR.play(U_close_card_C3_NA) // Do nothing.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
-    USR.play(U_close_card_C2_TB) // Multiply by 2 each in row with same name, including itself.
-    assertEquals(U_close_card_C2_NA.getCurrentStrength, given_strength * 2)
-    assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
-    assertEquals(U_close_card_C1_MB.getCurrentStrength, given_strength)
-    assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength * 2)
-
-  }
-
   test("Three possible effects of close combat cards can be played, null abilities first.") {
     USR.getHand.take()
     USR.getHand.take()
@@ -296,7 +273,6 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C1_MB.getCurrentStrength, 1)
     assertEquals(U_close_card_C3_NA.getCurrentStrength, given_strength)
     assertEquals(U_close_card_C2_TB.getCurrentStrength, given_strength*2)
-
   }
 
   test("Biting Frost works for both player's close combat cards.") {
@@ -334,10 +310,186 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_C2_TB.getCurrentStrength, 1)
     assertEquals(U_close_card_C2_NA.getCurrentStrength, 1)
     assertEquals(U_close_card_C3_NA.getCurrentStrength, 1)
-
   }
 
-  test("Playing a close combat card should leave cards from other rows unchanged.") {
+  test("Impenetrable Fog reduces strength to 1 for ranged units.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_IF)
+    USR.getHand.put(U_close_card_R2_NA)
+    USR.getHand.put(U_close_card_R3_NA)
+    USR.getHand.put(U_close_card_R1_MB)
+    USR.getHand.put(U_close_card_R2_TB)
 
+    // Initially weather is clear.
+    USR.play(U_close_card_R2_NA)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, given_strength)
+
+    // And unit abilities work like always.
+    USR.play(U_close_card_R1_MB)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, given_strength + 1)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, given_strength)
+
+    // Once weather card for Impenetrable is played, ranged units are blind.
+    USR.play(W_card_IF)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, 1)
+
+    // Any new card added doesn't feel the effect of the previously imposed weather.
+    USR.play(U_close_card_R3_NA)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_R3_NA.getCurrentStrength, given_strength)
+
+    // If the new card has a unit effect, it acts on cards affected by weather.
+    USR.play(U_close_card_R2_TB)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, 1 * 2)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_R3_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_R2_TB.getCurrentStrength, given_strength * 2)
+  }
+
+  test("Impenetrable Fog works for both player's ranged cards.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_IF)
+    USR.getHand.put(U_close_card_R2_NA)
+    USR.getHand.put(U_close_card_R1_MB)
+    CPU.getHand.take()
+    CPU.getHand.take()
+    CPU.getHand.put(U_close_card_R2_TB)
+    CPU.getHand.put(U_close_card_R3_NA)
+
+    USR.play(U_close_card_R1_MB)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_R2_TB)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_R2_TB.getCurrentStrength, given_strength * 2)
+
+    USR.play(U_close_card_R2_NA)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_R2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_R3_NA)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_R2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_R3_NA.getCurrentStrength, given_strength)
+
+    USR.play(W_card_IF)
+    assertEquals(U_close_card_R1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_R2_TB.getCurrentStrength, 1)
+    assertEquals(U_close_card_R2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_R3_NA.getCurrentStrength, 1)
+  }
+
+  test("Torrential Rain reduces strength to 1 for siege units.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_TR)
+    USR.getHand.put(U_close_card_S2_NA)
+    USR.getHand.put(U_close_card_S3_NA)
+    USR.getHand.put(U_close_card_S1_MB)
+    USR.getHand.put(U_close_card_S2_TB)
+
+    // Initially weather is clear.
+    USR.play(U_close_card_S2_NA)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength)
+
+    // And unit abilities work like always.
+    USR.play(U_close_card_S1_MB)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength + 1)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+
+    // Once weather card for Impenetrable is played, ranged units are blind.
+    USR.play(W_card_TR)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, 1)
+
+    // Any new card added doesn't feel the effect of the previously imposed weather.
+    USR.play(U_close_card_S3_NA)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_S3_NA.getCurrentStrength, given_strength)
+
+    // If the new card has a unit effect, it acts on cards affected by weather.
+    USR.play(U_close_card_S2_TB)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, 1 * 2)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_S3_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, given_strength * 2)
+  }
+
+  test("Torrential Rain works for both player's siege cards.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_TR)
+    USR.getHand.put(U_close_card_S2_NA)
+    USR.getHand.put(U_close_card_S1_MB)
+    CPU.getHand.take()
+    CPU.getHand.take()
+    CPU.getHand.put(U_close_card_S2_TB)
+    CPU.getHand.put(U_close_card_S3_NA)
+
+    USR.play(U_close_card_S1_MB)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_S2_TB)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, given_strength * 2)
+
+    USR.play(U_close_card_S2_NA)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength)
+
+    CPU.play(U_close_card_S3_NA)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, given_strength * 2)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S3_NA.getCurrentStrength, given_strength)
+
+    USR.play(W_card_TR)
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, 1)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, 1)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, 1)
+    assertEquals(U_close_card_S3_NA.getCurrentStrength, 1)
+  }
+
+  test("Cards previously affected by weather now return to their base strength.") {
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.take()
+    USR.getHand.put(W_card_TR)
+    USR.getHand.put(U_close_card_S2_NA)
+    USR.getHand.put(U_close_card_S1_MB)
+    CPU.getHand.take()
+    CPU.getHand.take()
+    CPU.getHand.take()
+    CPU.getHand.put(U_close_card_S2_TB)
+    CPU.getHand.put(U_close_card_S3_NA)
+    CPU.getHand.put(W_card_CW)
+
+    USR.play(U_close_card_S1_MB)
+    CPU.play(U_close_card_S2_TB)
+    USR.play(U_close_card_S2_NA)
+    CPU.play(U_close_card_S3_NA)
+    USR.play(W_card_TR)
+    CPU.play(W_card_CW)
+
+    assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_TB.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength)
+    assertEquals(U_close_card_S3_NA.getCurrentStrength, given_strength)
   }
 }
