@@ -410,7 +410,7 @@ class AbilityTest extends FunSuite {
     assertEquals(U_close_card_S2_NA.getCurrentStrength, given_strength + 1)
     assertEquals(U_close_card_S1_MB.getCurrentStrength, given_strength)
 
-    // Once weather card for Impenetrable is played, ranged units are blind.
+    // Once weather card for Impenetrable is played, siege units are wet.
     USR.play(W_card_TR)
     assertEquals(U_close_card_S2_NA.getCurrentStrength, 1)
     assertEquals(U_close_card_S1_MB.getCurrentStrength, 1)
